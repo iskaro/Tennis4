@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Tennis4.Models;
 using Tennis4.DAL;
@@ -20,28 +18,28 @@ namespace Tennis4.Controllers
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-            var students = from s in db.Players
+            var players = from s in db.Players
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                students = students.Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper()) || s.FirstName.ToUpper().Contains(searchString.ToUpper()));
+                players = players.Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper()) || s.FirstName.ToUpper().Contains(searchString.ToUpper()));
             }
             switch (sortOrder)
             {
                 case "name_desc":
-                    students = students.OrderByDescending(s => s.LastName);
+                    players = players.OrderByDescending(s => s.LastName);
                     break;
                 case "Date":
-                    students = students.OrderBy(s => s.DayOfBirth);
+                    players = players.OrderBy(s => s.DayOfBirth);
                     break;
                 case "date_desc":
-                    students = students.OrderByDescending(s => s.DayOfBirth);
+                    players = players.OrderByDescending(s => s.DayOfBirth);
                     break;
                 default:
-                    students = students.OrderBy(s => s.LastName);
+                    players = players.OrderBy(s => s.LastName);
                     break;
             }        
-            return View(db.Players.ToList());
+            return View(players.ToList());
         }
 
         // GET: /Player/Details/5
