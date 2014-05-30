@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Tennis4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Competition">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompetitionName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CompetitionEnrollment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlayerID" Type="int" Nullable="false" />
+          <Property Name="CompetitionRowID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompetitionRow">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RowName" Type="int" Nullable="false" />
+          <Property Name="Capacity" Type="int" Nullable="false" />
+          <Property Name="CompetitionID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="DayOfBirth" Type="datetime" Nullable="false" />
+          <Property Name="TelephoneNumber" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_dbo_CompetitionEnrollment_dbo_CompetitionRow_CompetitionRowID">
+          <End Role="CompetitionRow" Type="Self.CompetitionRow" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CompetitionEnrollment" Type="Self.CompetitionEnrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetitionRow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompetitionEnrollment">
+              <PropertyRef Name="CompetitionRowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CompetitionEnrollment_dbo_Player_PlayerID">
+          <End Role="Player" Type="Self.Player" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CompetitionEnrollment" Type="Self.CompetitionEnrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompetitionEnrollment">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CompetitionRow_dbo_Competition_CompetitionID">
+          <End Role="Competition" Type="Self.Competition" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CompetitionRow" Type="Self.CompetitionRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competition">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompetitionRow">
+              <PropertyRef Name="CompetitionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Tennis4ModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Competition" EntityType="Self.Competition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompetitionEnrollment" EntityType="Self.CompetitionEnrollment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompetitionRow" EntityType="Self.CompetitionRow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_CompetitionEnrollment_dbo_CompetitionRow_CompetitionRowID" Association="Self.FK_dbo_CompetitionEnrollment_dbo_CompetitionRow_CompetitionRowID">
+            <End Role="CompetitionRow" EntitySet="CompetitionRow" />
+            <End Role="CompetitionEnrollment" EntitySet="CompetitionEnrollment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CompetitionEnrollment_dbo_Player_PlayerID" Association="Self.FK_dbo_CompetitionEnrollment_dbo_Player_PlayerID">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="CompetitionEnrollment" EntitySet="CompetitionEnrollment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CompetitionRow_dbo_Competition_CompetitionID" Association="Self.FK_dbo_CompetitionRow_dbo_Competition_CompetitionID">
+            <End Role="Competition" EntitySet="Competition" />
+            <End Role="CompetitionRow" EntitySet="CompetitionRow" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Tennis4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Competition">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompetitionName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CompetitionRow" Relationship="Self.FK_dbo_CompetitionRow_dbo_Competition_CompetitionID" FromRole="Competition" ToRole="CompetitionRow" />
+        </EntityType>
+        <EntityType Name="CompetitionEnrollment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlayerID" Type="Int32" Nullable="false" />
+          <Property Name="CompetitionRowID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CompetitionRow" Relationship="Self.FK_dbo_CompetitionEnrollment_dbo_CompetitionRow_CompetitionRowID" FromRole="CompetitionEnrollment" ToRole="CompetitionRow" />
+          <NavigationProperty Name="Player" Relationship="Self.FK_dbo_CompetitionEnrollment_dbo_Player_PlayerID" FromRole="CompetitionEnrollment" ToRole="Player" />
+        </EntityType>
+        <EntityType Name="CompetitionRow">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RowName" Type="Int32" Nullable="false" />
+          <Property Name="Capacity" Type="Int32" Nullable="false" />
+          <Property Name="CompetitionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Competition" Relationship="Self.FK_dbo_CompetitionRow_dbo_Competition_CompetitionID" FromRole="CompetitionRow" ToRole="Competition" />
+          <NavigationProperty Name="CompetitionEnrollment" Relationship="Self.FK_dbo_CompetitionEnrollment_dbo_CompetitionRow_CompetitionRowID" FromRole="CompetitionRow" ToRole="CompetitionEnrollment" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DayOfBirth" Type="DateTime" Nullable="false" />
+          <Property Name="TelephoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CompetitionEnrollment" Relationship="Self.FK_dbo_CompetitionEnrollment_dbo_Player_PlayerID" FromRole="Player" ToRole="CompetitionEnrollment" />
+        </EntityType>
+        <Association Name="FK_dbo_CompetitionRow_dbo_Competition_CompetitionID">
+          <End Role="Competition" Type="Self.Competition" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CompetitionRow" Type="Self.CompetitionRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competition">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompetitionRow">
+              <PropertyRef Name="CompetitionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CompetitionEnrollment_dbo_CompetitionRow_CompetitionRowID">
+          <End Role="CompetitionRow" Type="Self.CompetitionRow" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CompetitionEnrollment" Type="Self.CompetitionEnrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompetitionRow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompetitionEnrollment">
+              <PropertyRef Name="CompetitionRowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CompetitionEnrollment_dbo_Player_PlayerID">
+          <End Role="Player" Type="Self.Player" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CompetitionEnrollment" Type="Self.CompetitionEnrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompetitionEnrollment">
+              <PropertyRef Name="PlayerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Tennis4Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="Competition" EntityType="Self.Competition" />
+          <EntitySet Name="CompetitionEnrollment" EntityType="Self.CompetitionEnrollment" />
+          <EntitySet Name="CompetitionRow" EntityType="Self.CompetitionRow" />
+          <EntitySet Name="Player" EntityType="Self.Player" />
+          <AssociationSet Name="FK_dbo_CompetitionRow_dbo_Competition_CompetitionID" Association="Self.FK_dbo_CompetitionRow_dbo_Competition_CompetitionID">
+            <End Role="Competition" EntitySet="Competition" />
+            <End Role="CompetitionRow" EntitySet="CompetitionRow" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CompetitionEnrollment_dbo_CompetitionRow_CompetitionRowID" Association="Self.FK_dbo_CompetitionEnrollment_dbo_CompetitionRow_CompetitionRowID">
+            <End Role="CompetitionRow" EntitySet="CompetitionRow" />
+            <End Role="CompetitionEnrollment" EntitySet="CompetitionEnrollment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CompetitionEnrollment_dbo_Player_PlayerID" Association="Self.FK_dbo_CompetitionEnrollment_dbo_Player_PlayerID">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="CompetitionEnrollment" EntitySet="CompetitionEnrollment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Tennis4ModelStoreContainer" CdmEntityContainer="Tennis4Entities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="Tennis4Model.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Competition">
+            <EntityTypeMapping TypeName="Tennis4Model.Competition">
+              <MappingFragment StoreEntitySet="Competition">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CompetitionName" ColumnName="CompetitionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompetitionEnrollment">
+            <EntityTypeMapping TypeName="Tennis4Model.CompetitionEnrollment">
+              <MappingFragment StoreEntitySet="CompetitionEnrollment">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PlayerID" ColumnName="PlayerID" />
+                <ScalarProperty Name="CompetitionRowID" ColumnName="CompetitionRowID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompetitionRow">
+            <EntityTypeMapping TypeName="Tennis4Model.CompetitionRow">
+              <MappingFragment StoreEntitySet="CompetitionRow">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RowName" ColumnName="RowName" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="CompetitionID" ColumnName="CompetitionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Player">
+            <EntityTypeMapping TypeName="Tennis4Model.Player">
+              <MappingFragment StoreEntitySet="Player">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DayOfBirth" ColumnName="DayOfBirth" />
+                <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

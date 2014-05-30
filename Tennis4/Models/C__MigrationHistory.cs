@@ -12,16 +12,11 @@ namespace Tennis4.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Competition
+    public partial class C__MigrationHistory
     {
-        public Competition()
-        {
-            this.CompetitionRow = new HashSet<CompetitionRow>();
-        }
-    
-        public int ID { get; set; }
-        public string CompetitionName { get; set; }
-    
-        public virtual ICollection<CompetitionRow> CompetitionRow { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }
