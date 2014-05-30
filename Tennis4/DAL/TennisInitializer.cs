@@ -39,9 +39,10 @@ namespace Tennis4.DAL
 
             var competitionRows = new List<CompetitionRow>
             {
-                new CompetitionRow{Row=1},
-                new CompetitionRow{Row=2},
-                new CompetitionRow{Row=3},
+                new CompetitionRow{RowName=1, Capacity=2, CompetitionID=1},
+                new CompetitionRow{RowName=2, Capacity=2, CompetitionID=1},
+                new CompetitionRow{RowName=3, Capacity=2, CompetitionID=1},
+
             };
             competitionRows.ForEach(s => context.CompetitionRows.Add(s));
             context.SaveChanges();
@@ -51,12 +52,13 @@ namespace Tennis4.DAL
 
             var competitionEnrollments = new List<CompetitionEnrollment>
             {
-                new CompetitionEnrollment{PlayerID=1, CompetitionID=1, CompetitionRowID=1},
-                new CompetitionEnrollment{PlayerID=2, CompetitionID=1, CompetitionRowID=1},
-                new CompetitionEnrollment{PlayerID=3, CompetitionID=1, CompetitionRowID=2},
-                new CompetitionEnrollment{PlayerID=4, CompetitionID=1, CompetitionRowID=2},
-                new CompetitionEnrollment{PlayerID=5, CompetitionID=1, CompetitionRowID=3},
-                new CompetitionEnrollment{PlayerID=6, CompetitionID=1, CompetitionRowID=3},
+                new CompetitionEnrollment{PlayerID=1, CompetitionRowID=1},
+                new CompetitionEnrollment{PlayerID=2, CompetitionRowID=1},
+                new CompetitionEnrollment{PlayerID=3, CompetitionRowID=2},
+                new CompetitionEnrollment{PlayerID=4, CompetitionRowID=2},
+                new CompetitionEnrollment{PlayerID=5, CompetitionRowID=3},
+                new CompetitionEnrollment{PlayerID=6, CompetitionRowID=3},
+
             };
             competitionEnrollments.ForEach(s => context.CompetitionEnrollments.Add(s));
             context.SaveChanges();

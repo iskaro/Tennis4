@@ -8,6 +8,6 @@ namespace Tennis4.Models
         public int ID { get; set; }
         public string CompetitionName { get; set; }
 
-        public virtual ICollection<CompetitionEnrollment> CompetitionEnrollments { get; set; }
+        public virtual ICollection<CompetitionRow> CompetitionRows { get; set; }
     }
 }
