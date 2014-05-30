@@ -16,8 +16,27 @@ namespace Tennis4.Controllers
         private TennisContext db = new TennisContext();
 
         // GET: /Player/
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            var students = from s in db.Players
+                           select s;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.LastName);
+                    break;
+                case "Date":
+                    students = students.OrderBy(s => s.DayOfBirth);
+                    break;
+                case "date_desc":
+                    students = students.OrderByDescending(s => s.DayOfBirth);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.LastName);
+                    break;
+            }        
             return View(db.Players.ToList());
         }
 
