@@ -6,6 +6,7 @@ using System.Net;
 using System.Web.Mvc;
 using Tennis4.Models;
 using Tennis4.DAL;
+using PagedList;
 
 namespace Tennis4.Controllers
 {
@@ -14,10 +15,23 @@ namespace Tennis4.Controllers
         private TennisContext db = new TennisContext();
 
         // GET: /Player/
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
             var players = from s in db.Players
                            select s;
             if (!String.IsNullOrEmpty(searchString))
@@ -38,8 +52,11 @@ namespace Tennis4.Controllers
                 default:
                     players = players.OrderBy(s => s.LastName);
                     break;
-            }        
-            return View(players.ToList());
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(players.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: /Player/Details/5

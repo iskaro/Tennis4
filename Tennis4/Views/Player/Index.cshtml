@@ -1,19 +1,21 @@
-﻿@model IEnumerable<Tennis4.Models.Player>
+﻿@model PagedList.IPagedList<Tennis4.Models.Player>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Players"; 
 }
 
-<h2>Index</h2>
+<h2>Players</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Player", FormMethod.Get))
 {
     <p>
-        Pretraga: @Html.TextBox("SearchString")
+        Pretraga: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p>
 }
@@ -21,13 +23,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Prezime", "Index", new { sortOrder = ViewBag.NameSortParm })
+            @Html.ActionLink("Prezime", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter })
         </th>
         <th>
             Ime
         </th>
         <th>
-            @Html.ActionLink("Datum rođenja", "Index", new { sortOrder = ViewBag.DateSortParm })
+            @Html.ActionLink("Datum rođenja", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
             Broj telefona
@@ -58,3 +60,7 @@
 }
 
 </table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
