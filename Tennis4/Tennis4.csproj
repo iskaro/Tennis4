@@ -111,6 +111,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CompetitionController.cs" />
+    <Compile Include="Controllers\CompetitionRowController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="DAL\TennisContext.cs" />
     <Compile Include="DAL\TennisInitializer.cs" />
@@ -126,6 +128,16 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <Content Include="Views\Competition\Create.cshtml" />
+    <Content Include="Views\Competition\Delete.cshtml" />
+    <Content Include="Views\Competition\Details.cshtml" />
+    <Content Include="Views\Competition\Edit.cshtml" />
+    <Content Include="Views\Competition\Index.cshtml" />
+    <Content Include="Views\CompetitionRow\Create.cshtml" />
+    <Content Include="Views\CompetitionRow\Delete.cshtml" />
+    <Content Include="Views\CompetitionRow\Details.cshtml" />
+    <Content Include="Views\CompetitionRow\Edit.cshtml" />
+    <Content Include="Views\CompetitionRow\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
