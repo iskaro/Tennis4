@@ -113,6 +113,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CompetitionController.cs" />
+    <Compile Include="Controllers\CompetitionEnrollmentController.cs" />
     <Compile Include="Controllers\CompetitionRowController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="DAL\TennisContext.cs" />
@@ -139,6 +140,11 @@
     <Content Include="Views\CompetitionRow\Details.cshtml" />
     <Content Include="Views\CompetitionRow\Edit.cshtml" />
     <Content Include="Views\CompetitionRow\Index.cshtml" />
+    <Content Include="Views\CompetitionEnrollment\Create.cshtml" />
+    <Content Include="Views\CompetitionEnrollment\Delete.cshtml" />
+    <Content Include="Views\CompetitionEnrollment\Details.cshtml" />
+    <Content Include="Views\CompetitionEnrollment\Edit.cshtml" />
+    <Content Include="Views\CompetitionEnrollment\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

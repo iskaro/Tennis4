@@ -13,7 +13,7 @@
 @using (Html.BeginForm("Index", "CompetitionRow", FormMethod.Get))
     {
         <p>
-            Pretraga: @Html.DropDownList("CompetitionNames", string.Empty)
+            Pretraga: @Html.DropDownList("CompetitionNames", "Choose competition")
             <input type="submit" value="Select" />
         </p>
 

@@ -16,7 +16,7 @@ namespace Tennis4.Controllers
         private TennisContext db = new TennisContext();
 
         // GET: /CompetitionRow/
-        public ActionResult Index(int? CompetitionNames)
+        public ActionResult Index(string CompetitionNames)
         {
             //if (CompetitionID == null)
             //{
@@ -38,11 +38,11 @@ namespace Tennis4.Controllers
 
             var listOfRows = db.CompetitionRows.ToList();
 
-            if (CompetitionNames >= 1)
+            if (CompetitionNames != null)
             {
-                    string query = "SELECT * FROM CompetitionRow WHERE CompetitionID = @0";
+                    string query = "SELECT * FROM CompetitionRow WHERE CompetitionID = @p0";
                     IEnumerable<CompetitionRow> data = db.Database.SqlQuery<CompetitionRow>(query, CompetitionNames);
-                listOfRows = data.ToList()
+                    listOfRows = data.ToList();
             }
       
             //var competitionrows = db.CompetitionRows.Include(c => c.Competition);
