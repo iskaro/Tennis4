@@ -16,26 +16,37 @@ namespace Tennis4.Controllers
         private TennisContext db = new TennisContext();
 
         // GET: /CompetitionRow/
-        public ActionResult Index(string currentFilter, string CompetitionNameFilter)
+        public ActionResult Index(int? CompetitionNames)
         {
-            if (CompetitionNameFilter == null)
-            {
-                CompetitionNameFilter = currentFilter;
-            }
+            //if (CompetitionID == null)
+            //{
+            //    CompetitionID = currentFilter;
+            //}
             
-            ViewBag.CurrentFilter = CompetitionNameFilter;
+            //ViewBag.CurrentFilter = CompetitionID;
+            
 
-            var competitionrows = from s in db.CompetitionRows
-                          select s;
-            if (!String.IsNullOrEmpty(CompetitionNameFilter))
+            //var competitionrows = from c in db.CompetitionRows
+            //                      select c;
+
+            ViewBag.CompetitionNames = new SelectList(db.Competitions, "ID", "CompetitionName");
+
+            //if (!String.IsNullOrEmpty(CompetitionID))
+            //{
+            //    competitionrows = competitionrows.Where(s => s.Competition.CompetitionName.Contains(CompetitionID));
+            //}
+
+            var listOfRows = db.CompetitionRows.ToList();
+
+            if (CompetitionNames >= 1)
             {
-                competitionrows = competitionrows.Where(s => s.Competition.CompetitionName.ToUpper().Contains(CompetitionNameFilter.ToUpper()));
+                    string query = "SELECT * FROM CompetitionRow WHERE CompetitionID = @0";
+                    IEnumerable<CompetitionRow> data = db.Database.SqlQuery<CompetitionRow>(query, CompetitionNames);
+                listOfRows = data.ToList()
             }
-
-            ViewBag.CompetitionID = new SelectList(db.Competitions, "ID", "CompetitionName");
-
+      
             //var competitionrows = db.CompetitionRows.Include(c => c.Competition);
-            return View(competitionrows.ToList());
+            return View(listOfRows);
         }
 
         // GET: /CompetitionRow/Details/5

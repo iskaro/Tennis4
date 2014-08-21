@@ -5,6 +5,7 @@ namespace Tennis4.Models
 {
     public class Competition
     {
+        public string CompetitionID;
         public int ID { get; set; }
         public string CompetitionName { get; set; }
 

@@ -11,20 +11,13 @@
 </p>
 
 @using (Html.BeginForm("Index", "CompetitionRow", FormMethod.Get))
-{
-    <p>
-        Pretraga: @Html.DropDownList("CompetitionID", String.Empty)
-        @*@Html.TextBox("CompetitionNameFilter", ViewBag.CurrentFilter as string)*@
-        <input type="submit" value="Search" />
-    </p>
-    
-    
-            <div class="col-md-10">
-                @Html.DropDownList("CompetitionID", String.Empty)
-            </div>
-      
-    
-}
+    {
+        <p>
+            Pretraga: @Html.DropDownList("CompetitionNames", string.Empty)
+            <input type="submit" value="Select" />
+        </p>
+
+    } 
 
 <table class="table">
     <tr>
