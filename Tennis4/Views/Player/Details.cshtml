@@ -42,27 +42,27 @@
             @Html.DisplayFor(model => model.TelephoneNumber)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.CompetitionEnrollments)
-        </dt>
-        <dd>
-            <table class="table">
+        @Html.DisplayNameFor(model => model.CompetitionEnrollments)
+    </dt>
+    <dd>
+        <table class="table">
+            <tr>
+                <th>Natjecanje</th>
+                <th>Red</th>
+            </tr>
+            @foreach (var item in Model.CompetitionEnrollments)
+            {
                 <tr>
-                    <th>Natjecanje</th>
-                    <th>Red</th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompetitionEnrollments.CompetitionName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompetitionRow.Row)
+                    </td>
                 </tr>
-                @foreach (var item in Model.CompetitionEnrollments)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Competition.CompetitionName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CompetitionRow.Row)
-                        </td>
-                    </tr>
-                }
-            </table>
-        </dd>
+            }
+        </table>
+    </dd>
     </dl>
 </div>
 <p>
