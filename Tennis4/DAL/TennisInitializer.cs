@@ -39,9 +39,9 @@ namespace Tennis4.DAL
 
             var competitionRows = new List<CompetitionRow>
             {
-                new CompetitionRow{RowName=1, Capacity=2, CompetitionID=1},
-                new CompetitionRow{RowName=2, Capacity=2, CompetitionID=1},
-                new CompetitionRow{RowName=3, Capacity=2, CompetitionID=1},
+                new CompetitionRow{RowNumber=1, Capacity=2, CompetitionID=1},
+                new CompetitionRow{RowNumber=2, Capacity=2, CompetitionID=1},
+                new CompetitionRow{RowNumber=3, Capacity=2, CompetitionID=1},
 
             };
             competitionRows.ForEach(s => context.CompetitionRows.Add(s));

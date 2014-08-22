@@ -6,7 +6,7 @@ namespace Tennis4.Models
     public class CompetitionRow
     {
         public int ID { get; set; }
-        public int RowName { get; set; }
+        public int RowNumber { get; set; }
         public int Capacity { get; set; }
         public int CompetitionID { get; set; }
 

@@ -19,6 +19,17 @@ namespace Tennis4.Controllers
         public ActionResult Index()
         {
             var competitionenrollments = db.CompetitionEnrollments.Include(c => c.CompetitionRow).Include(c => c.Player);
+
+            var query = (from ce in db.CompetitionEnrollments
+                         join p in db.Players on ce.PlayerID equals p.ID
+                         join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
+                         join c in db.Competitions on cr.CompetitionID equals c.ID
+                         where ce.PlayerID == p.ID
+                         select );
+
+
+            
+
             return View(competitionenrollments.ToList());
         }
 
