@@ -18,19 +18,32 @@ namespace Tennis4.Controllers
         // GET: /CompetitionEnrollment/
         public ActionResult Index()
         {
-            var competitionenrollments = db.CompetitionEnrollments.Include(c => c.CompetitionRow).Include(c => c.Player);
+            //var competitionenrollments = db.CompetitionEnrollments.Include(c => c.CompetitionRow).Include(c => c.Player);
 
-            var query = (from ce in db.CompetitionEnrollments
-                         join p in db.Players on ce.PlayerID equals p.ID
-                         join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
-                         join c in db.Competitions on cr.CompetitionID equals c.ID
-                         where ce.PlayerID == p.ID
-                         select );
+            //var query = (from ce in db.CompetitionEnrollments
+            //             join p in db.Players on ce.PlayerID equals p.ID
+            //             join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
+            //             join c in db.Competitions on cr.CompetitionID equals c.ID
+            //             where ce.PlayerID == p.ID
+            //             select );
 
+           
+            var query = from p in db.Players
+                        join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
+                        join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
+                        join c in db.Competitions on cr.CompetitionID equals c.ID
+                        select new PlayerPosition
+                        {
+                            FirstName = p.FirstName,
+                            LastName = p.LastName,
+                            CompetitionName = c.CompetitionName,
+                            RowNumber = cr.RowNumber
+                        };
 
-            
+            IEnumerable<PlayerPosition> data = query;
+            ViewBag.PlayerPosition = data;
 
-            return View(competitionenrollments.ToList());
+            return View();
         }
 
         // GET: /CompetitionEnrollment/Details/5
