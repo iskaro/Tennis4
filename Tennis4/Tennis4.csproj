@@ -116,7 +116,7 @@
     <Compile Include="Controllers\CompetitionEnrollmentController.cs" />
     <Compile Include="Controllers\CompetitionRowController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
-    <Compile Include="Models\PlayerPosition.cs" />
+    <Compile Include="Models\PlayerPositionModel.cs" />
     <Compile Include="DAL\TennisContext.cs" />
     <Compile Include="DAL\TennisInitializer.cs" />
     <Compile Include="Global.asax.cs">

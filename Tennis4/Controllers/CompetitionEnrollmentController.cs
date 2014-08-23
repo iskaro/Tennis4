@@ -32,7 +32,7 @@ namespace Tennis4.Controllers
                         join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
                         join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
                         join c in db.Competitions on cr.CompetitionID equals c.ID
-                        select new PlayerPosition
+                        select new PlayerPositionModel
                         {
                             FirstName = p.FirstName,
                             LastName = p.LastName,
@@ -40,10 +40,12 @@ namespace Tennis4.Controllers
                             RowNumber = cr.RowNumber
                         };
 
-            IEnumerable<PlayerPosition> data = query;
-            ViewBag.PlayerPosition = data;
+            ModelCast model = new ModelCast()
+            {
+                PlayerPositions = query.AsEnumerable()
+            };
 
-            return View();
+            return View(model);
         }
 
         // GET: /CompetitionEnrollment/Details/5

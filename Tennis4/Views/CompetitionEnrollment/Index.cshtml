@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Tennis4.Models.CompetitionEnrollment>
-@*@model Tennis4.Models.PlayerPosition*@
+﻿@*@model IEnumerable<Tennis4.Models.CompetitionEnrollment>*@
+@model Tennis4.Models.ModelCast
 
 @{
     //var FirstName = (ViewBag.PlayerPosition as Tennis4.Models.PlayerPosition).FirstName;
@@ -33,20 +33,24 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@*@foreach (var item in Model) {*@
+@foreach (Tennis4.Models.PlayerPositionModel item in Model.PlayerPositions) {
     <tr>
         <td>
             @*@Html.DisplayFor(modelItem => item.Player.FirstName)*@
-            @Model
+            @item.FirstName
         </td>
         <td>
             @*@Html.DisplayFor(modelItem => item.Player.LastName)*@
+            @item.LastName
         </td>
         <td>
             @*@Html.DisplayFor(modelItem => item.)*@
+            @item.CompetitionName
         </td>
         <td>
             @*@Html.DisplayFor(modelItem => item.CompetitionRow.RowNumber)*@
+            @item.RowNumber
         </td>
         <td>
             @*@Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
