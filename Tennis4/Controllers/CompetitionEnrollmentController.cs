@@ -67,7 +67,18 @@ namespace Tennis4.Controllers
         public ActionResult Create()
         {
             ViewBag.CompetitionRowID = new SelectList(db.CompetitionRows, "ID", "ID");
-            ViewBag.PlayerID = new SelectList(db.Players, "ID", "FirstName");
+            //ViewBag.PlayerID = new SelectList(db.Players, "ID", "FirstName");
+
+            var playerQuery = from p in db.Players
+                              select new
+                              {
+                                  p.ID,
+                                  p.LastName,
+                                  p.FirstName
+                              };
+
+            ViewBag.PlayerID = new SelectList(playerQuery);
+
             return View();
         }
 
