@@ -66,20 +66,44 @@ namespace Tennis4.Controllers
         // GET: /CompetitionEnrollment/Create
         public ActionResult Create()
         {
-            ViewBag.CompetitionRowID = new SelectList(db.CompetitionRows, "ID", "ID");
-            //ViewBag.PlayerID = new SelectList(db.Players, "ID", "FirstName");
+            //ViewBag.PlayerListID = new SelectList(db.Players, "ID", "FirstName");
 
+            //**** Send list of players for dropdown list ****
             var playerQuery = from p in db.Players
-                              select new
+                              select new PlayerIdLastNameFirstName
                               {
-                                  p.ID,
-                                  p.LastName,
-                                  p.FirstName
+                                  ID = p.ID,
+                                  LastNameFirstName = p.LastName + ", " + p.FirstName
                               };
+            ViewBag.PlayerListID = new SelectList(playerQuery, "ID", "LastNameFirstName");
 
-            ViewBag.PlayerID = new SelectList(playerQuery);
+            //***** Select list of competitions for dropdown list ****
+            ViewBag.CompetitionListID = new SelectList(db.Competitions.AsEnumerable(), "ID", "CompetitionName");
+
+            //**** Select list of rows for dropdown list ****
+            //var rowQuery = from cr in db.CompetitionRows
+            //               where cr.
+
+            //ViewBag.CompetitionRowID = new SelectList(db.CompetitionRows, "ID", "ID");
+
 
             return View();
+        }
+
+        // JSON: /CompetitionEnrollment/Create
+        public JsonResult GetRows (string CompID)
+        {
+            var queryRows = from cr in db.CompetitionRows
+                            where cr.CompetitionID.Equals(CompID)
+                            select new
+                            {
+                                cr.ID,
+                                cr.RowNumber
+                            };
+
+            var listOfRows = new SelectList(queryRows.AsEnumerable(), "ID", "RowNumber");
+
+            return Json(listOfRows);
         }
 
         // POST: /CompetitionEnrollment/Create

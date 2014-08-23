@@ -18,4 +18,10 @@ namespace Tennis4.Models
     {
         public IEnumerable<PlayerPositionModel> PlayerPositions { get; set; }
     }
+
+    public class PlayerIdLastNameFirstName
+    {
+        public int ID { get; set; }
+        public string LastNameFirstName { get; set; }
+    }
 }
