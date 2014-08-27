@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Tennis4.Models;
 using Tennis4.DAL;
+using System.Data.Entity.SqlServer;
 
 namespace Tennis4.Controllers
 {
@@ -91,10 +92,10 @@ namespace Tennis4.Controllers
         }
 
         // JSON: /CompetitionEnrollment/Create
-        public JsonResult GetRows (string CompID)
+        public JsonResult GetRows (string CompID) //ovaj CompId funkcija dobiva kao null. To znači da view ne vraća dobar id. Popravi.
         {
             var queryRows = from cr in db.CompetitionRows
-                            where cr.CompetitionID.Equals(CompID)
+                            where SqlFunctions.StringConvert((double)cr.CompetitionID).Trim() == CompID
                             select new
                             {
                                 cr.ID,
@@ -103,7 +104,7 @@ namespace Tennis4.Controllers
 
             var listOfRows = new SelectList(queryRows.AsEnumerable(), "ID", "RowNumber");
 
-            return Json(listOfRows);
+            return Json(listOfRows, JsonRequestBehavior.AllowGet);
         }
 
         // POST: /CompetitionEnrollment/Create

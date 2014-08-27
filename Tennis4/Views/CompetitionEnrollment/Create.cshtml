@@ -4,40 +4,9 @@
     ViewBag.Title = "Create";
 }
 
-<script>
-    $(document).ready(function () {
-        $("#row").prop("disabled", true);
-        $("#competition").change(function () {
-            if ($("#competition").val() != "") {
-                var options = {};
-                options.url = "/CompetitionEnrollmentController/GetRows";
-                options.type = "POST";
-                options.data = JSON.stringify({ competition: $("#competition").val() });
-                options.dataType = "json";
-                options.contentType = "application/json";
-                options.success = function (listOfRows) {
-                    $("#row").empty();
-                    for (var i = 0; i < listOfRows.length; i++) {
-                        $("#row").append("<option>" + listOfRows[i] + "</option>");
-                    }
-                    $("#row").prop("disabled", false);
-                };
-                options.error = function () { alert("Error retrieving rows!"); };
-                $.ajax(options);
-            }
-            else {
-                $("#row").empty();
-                $("#row").prop("disabled", true);
-            }
-        });
-    });
-</script>
-
-
-
 <h2>Create</h2>
 
-@using (Html.BeginForm("Create", "CompetitionEnrollmentController", FormMethod.Post)) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
@@ -49,7 +18,7 @@
         <div class="form-group">
             @*@Html.LabelFor(model => model.PlayerID, "PlayerID", new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.DropDownList("PlayerListID", string.Empty)
+                @Html.DropDownList("PlayerListID", ViewBag.PlayerListID as SelectList, string.Empty)
                 @*@Html.ValidationMessageFor(model => model.PlayerID)*@
             </div>
         </div>
@@ -59,14 +28,15 @@
             Competiton Name
             <div class="col-md-10">
                 @*@Html.DropDownList("CompetitionListID", String.Empty)*@
-                @Html.DropDownList("CompetitionListID", ViewBag.CompetitionListID as SelectList, String.Empty)
+                @Html.DropDownList("CompetitionListID", ViewBag.CompetitionListID as SelectList, String.Empty, new { id = "Competition" })
                 @*@Html.ValidationMessageFor(model => model.CompetitionRowID)*@
             </div>
         </div>
 
-        <div>Select Row:</div>
-        <select id="row"></select>
-        <br /><br />
+        <div id="RowDivID">
+            @Html.Label("Select row:")
+            <select id="Row" name="Row"></select>
+        </div>
         @*<input type="submit" value="Submit" />*@
 
         @*<div class="form-group">
@@ -80,12 +50,13 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" id="SubmitID" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
+@*<script src="@Url.Content("~/Scripts/CompetitionRow.js")"></script>*@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
@@ -95,3 +66,18 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@*@Scripts.Render("~/bundles/jquery")*@
+<script type="text/jscript">
+    $(function () {
+        $('#Competition').change(function () {
+            $.getJSON('/CompetitionEnrollment/GetRows/' + $('#Competition').val(), function (data) {
+                var items = '<option>Select a row</option>';
+                $.each(data, function (i, row) {
+                    items += "<option value='" + row.Value + "'>" + row.Text + "</option>";
+                });
+                $('#Row').html(items);
+            });
+        });
+    });
+</script>
