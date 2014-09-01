@@ -18,7 +18,7 @@
         <div class="form-group">
             @*@Html.LabelFor(model => model.PlayerID, "PlayerID", new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.DropDownList("PlayerListID", ViewBag.PlayerListID as SelectList, string.Empty)
+                @Html.DropDownList("PlayerID", ViewBag.PlayerID as SelectList, string.Empty)
                 @*@Html.ValidationMessageFor(model => model.PlayerID)*@
             </div>
         </div>
@@ -35,7 +35,7 @@
 
         <div id="RowDivID">
             @Html.Label("Select row:")
-            <select id="Row" name="Row"></select>
+            <select id="Row" name="CompetitionRowID"></select>
         </div>
         @*<input type="submit" value="Submit" />*@
 

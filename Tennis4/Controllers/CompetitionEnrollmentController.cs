@@ -76,7 +76,7 @@ namespace Tennis4.Controllers
                                   ID = p.ID,
                                   LastNameFirstName = p.LastName + ", " + p.FirstName
                               };
-            ViewBag.PlayerListID = new SelectList(playerQuery, "ID", "LastNameFirstName");
+            ViewBag.PlayerID = new SelectList(playerQuery, "ID", "LastNameFirstName");
 
             //***** Select list of competitions for dropdown list ****
             ViewBag.CompetitionListID = new SelectList(db.Competitions.AsEnumerable(), "ID", "CompetitionName");
@@ -92,10 +92,10 @@ namespace Tennis4.Controllers
         }
 
         // JSON: /CompetitionEnrollment/Create
-        public JsonResult GetRows (string CompID) //ovaj CompId funkcija dobiva kao null. To znači da view ne vraća dobar id. Popravi.
+        public JsonResult GetRows (string Id) //ovaj Id funkcija dobiva kao null. To znači da view ne vraća dobar id. Popravi.
         {
             var queryRows = from cr in db.CompetitionRows
-                            where SqlFunctions.StringConvert((double)cr.CompetitionID).Trim() == CompID
+                            where SqlFunctions.StringConvert((double)cr.CompetitionID).Trim() == Id
                             select new
                             {
                                 cr.ID,
