@@ -92,7 +92,7 @@ namespace Tennis4.Controllers
         }
 
         // JSON: /CompetitionEnrollment/Create
-        public JsonResult GetRows (string Id) //ovaj Id funkcija dobiva kao null. To znači da view ne vraća dobar id. Popravi.
+        public JsonResult GetRows (string Id) 
         {
             var queryRows = from cr in db.CompetitionRows
                             where SqlFunctions.StringConvert((double)cr.CompetitionID).Trim() == Id
