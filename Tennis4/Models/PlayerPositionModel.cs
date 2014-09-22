@@ -8,6 +8,7 @@ namespace Tennis4.Models
 {
     public class PlayerPositionModel
     {
+        public int CompetitionEnrollmentID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CompetitionName { get; set; }

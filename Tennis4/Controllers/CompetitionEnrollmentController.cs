@@ -35,6 +35,7 @@ namespace Tennis4.Controllers
                         join c in db.Competitions on cr.CompetitionID equals c.ID
                         select new PlayerPositionModel
                         {
+                            CompetitionEnrollmentID = ce.ID,
                             FirstName = p.FirstName,
                             LastName = p.LastName,
                             CompetitionName = c.CompetitionName,

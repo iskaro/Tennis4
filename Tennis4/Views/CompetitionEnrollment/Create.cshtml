@@ -56,7 +56,6 @@
     </div>
 }
 
-@*<script src="@Url.Content("~/Scripts/CompetitionRow.js")"></script>*@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
@@ -66,18 +65,4 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-@*@Scripts.Render("~/bundles/jquery")*@
-<script type="text/jscript">
-    $(function () {
-        $('#Competition').change(function () {
-            $.getJSON('/CompetitionEnrollment/GetRows/' + $('#Competition').val(), function (data) {
-                var items = '<option>Select a row</option>';
-                $.each(data, function (i, row) {
-                    items += "<option value='" + row.Value + "'>" + row.Text + "</option>";
-                });
-                $('#Row').html(items);
-            });
-        });
-    });
-</script>
+<script src="@Url.Content("~/Scripts/CompetitionRow.js")"></script>

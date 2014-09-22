@@ -8,6 +8,5 @@ namespace Tennis4.Models
         public int CompetitionRowID { get; set; }
 
         public virtual Player Player { get; set; }
-        public virtual CompetitionRow CompetitionRow { get; set; }
     }
 }
