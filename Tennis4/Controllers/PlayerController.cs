@@ -71,6 +71,45 @@ namespace Tennis4.Controllers
             {
                 return HttpNotFound();
             }
+
+            var query = from p in db.Players
+                        join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
+                        join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
+                        join c in db.Competitions on cr.CompetitionID equals c.ID
+                        where p.ID == id
+                        select new PlayerPositionModel
+                        {
+                            CompetitionEnrollmentID = ce.ID,
+                            FirstName = p.FirstName,
+                            LastName = p.LastName,
+                            CompetitionName = c.CompetitionName,
+                            RowNumber = cr.RowNumber
+                        };
+
+            ViewBag.Rows = db.CompetitionRows;
+            ViewBag.Enrollments = db.CompetitionEnrollments;
+
+            ViewBag.PlayerPosition = query.AsEnumerable();
+
+
+            //var query2 = from p in db.Players
+            //             where p.ID == id
+            //             select new Player
+            //             {
+            //                 ID = p.ID,
+            //                 FirstName = p.FirstName,
+            //                 LastName = p.LastName,
+            //                 Email = p.Email,
+            //                 DayOfBirth = p.DayOfBirth,
+            //                 TelephoneNumber = p.TelephoneNumber
+            //             };
+
+            //ModelCast model = new ModelCast()
+            //{
+            //    PlayerPositions = query.AsEnumerable(),
+            //    PlayersModel = query2.AsEnumerable()
+            //};
+
             return View(player);
         }
 
@@ -85,7 +124,7 @@ namespace Tennis4.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="FirstName,LastName,DayOfBirth,TelephoneNumber")] Player player)
+        public ActionResult Create([Bind(Include="FirstName,LastName,Email,DayOfBirth,TelephoneNumber")] Player player)
         {
             try
             {

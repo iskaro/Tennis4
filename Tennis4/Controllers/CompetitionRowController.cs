@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Tennis4.Models;
 using Tennis4.DAL;
+using System.Web.UI;
 
 namespace Tennis4.Controllers
 {
@@ -31,18 +32,17 @@ namespace Tennis4.Controllers
 
             ViewBag.CompetitionNames = new SelectList(db.Competitions, "ID", "CompetitionName");
 
-            //if (!String.IsNullOrEmpty(CompetitionID))
+            //if (!String.IsNullOrEmpty(CompetitionNames))
             //{
             //    competitionrows = competitionrows.Where(s => s.Competition.CompetitionName.Contains(CompetitionID));
             //}
 
             var listOfRows = db.CompetitionRows.ToList();
 
-            if (CompetitionNames != null)
+            if (!String.IsNullOrEmpty(CompetitionNames))
             {
-                    string query = "SELECT * FROM CompetitionRow WHERE CompetitionID = @p0";
-                    IEnumerable<CompetitionRow> data = db.Database.SqlQuery<CompetitionRow>(query, CompetitionNames);
-                    listOfRows = data.ToList();
+                int compID = Int32.Parse(CompetitionNames);
+                listOfRows = db.CompetitionRows.Where(cr => cr.CompetitionID == compID).ToList();
             }
       
             //var competitionrows = db.CompetitionRows.Include(c => c.Competition);
@@ -147,6 +147,14 @@ namespace Tennis4.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
+        [HttpPost]
+        public JsonResult doesRowInCompetitionExist(int RowNumber, int? CompetitionID)
+        {
+            return Json(!db.CompetitionRows.Where(row => (row.CompetitionID == CompetitionID)).Any(row => row.RowNumber == RowNumber), JsonRequestBehavior.AllowGet);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "signupform" })) 
 {
     @Html.AntiForgeryToken()
     
@@ -15,6 +15,14 @@
         <h4>CompetitionRow</h4>
         <hr />
         @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CompetitionID, "CompetitionID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CompetitionID", String.Empty)
+                @Html.ValidationMessageFor(model => model.CompetitionID)
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.RowNumber, new { @class = "control-label col-md-2" })
@@ -33,14 +41,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CompetitionID, "CompetitionID", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CompetitionID", String.Empty)
-                @Html.ValidationMessageFor(model => model.CompetitionID)
-            </div>
-        </div>
-
-        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
@@ -52,6 +52,43 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-2.1.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+@*<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.validate-vsdoc.js"></script>**@
+@*<script src="~/Scripts/ValidationAdditionalFields.js"></script>*@
+
+
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    initializeRemotelyValidatingElementsWithAdditionalFields($("RowNumber"));
+    //});
+    //function Validation() {
+    //    $('#RowNumber').removeData('previousValue');
+    //    $('form').validate().element('#RowNumber');
+    //}
+    
+    //$(function () {
+    ////    $("#CompetitionID").change(function () {
+    ////        $("#RowNumber").removeData("previousValue");
+    ////        $("#signupform").validate().element("#RowNumber");
+    ////    //    //$("#signupform").data("validator")//.element("#RowNumber");
+    //    $(document).change(function () {
+    //    initializeRemotelyValidatingElementsWithAdditionalFields($("#signupform"));
+    //       });
+    ////    //});
+    //});
+
+
+
+
+    //$(function () {
+    //    var form = $("signupform");
+    //    form.validate(onchange).element("RowNumber");
+    //});
+
+    //$("#CompetitionID").change(function () {
+    //    $("#RowNumber").removeData("previousValue");
+    //});
+</script>

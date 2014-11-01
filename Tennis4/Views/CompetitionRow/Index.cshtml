@@ -22,13 +22,13 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Competition.CompetitionName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.RowNumber)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Capacity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Competition.CompetitionName)
         </th>
         <th></th>
     </tr>
@@ -36,13 +36,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.Competition.CompetitionName)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.RowNumber)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Capacity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Competition.CompetitionName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

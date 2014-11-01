@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Tennis4.Models.EnrollmentViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RowNumber)
+        </th>
+        @foreach (Tennis4.Models.Player player in ViewBag.Players)
+        {
+            <th>
+                Player
+            </th>
+        }
+    </tr>
+
+    @foreach (var row in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => row.RowNumber)
+            </td>
+            }
+            @foreach (Tennis4.Models.Player player in ViewBag.Players)
+            {
+                <td>
+                    @player.LastName
+                </td>
+            }
+        </tr>
+    }
+</table>

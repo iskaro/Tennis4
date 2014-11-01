@@ -13,12 +13,12 @@ namespace Tennis4.DAL
         {
             var players = new List<Player>
             {
-                new Player{FirstName="Ivan",LastName="Škaro",DayOfBirth=DateTime.Parse("3.3.1986."),TelephoneNumber="+385958101986"},
-                new Player{FirstName="Ana",LastName="Lauš",DayOfBirth=DateTime.Parse("13.5.1987."),TelephoneNumber="+385999208144"},
-                new Player{FirstName="Viktor",LastName="Škaro",DayOfBirth=DateTime.Parse("29.8.1979."),TelephoneNumber="+3851234567"},
-                new Player{FirstName="Milenko",LastName="Škaro",DayOfBirth=DateTime.Parse("3.9.1955."),TelephoneNumber="+38598339307"},
-                new Player{FirstName="Kruno",LastName="Stražanac",DayOfBirth=DateTime.Parse("1.1.1985."),TelephoneNumber="+38598123456"},
-                new Player{FirstName="Milan",LastName="Marinić",DayOfBirth=DateTime.Parse("10.7.1977."),TelephoneNumber="+38591522245"}
+                new Player{FirstName="Ivan",LastName="Škaro",Email="ivan@email.com",DayOfBirth=DateTime.Parse("3.3.1986."),TelephoneNumber="+385958101986"},
+                new Player{FirstName="Ana",LastName="Lauš",Email="ana@email.com",DayOfBirth=DateTime.Parse("13.5.1987."),TelephoneNumber="+385999208144"},
+                new Player{FirstName="Viktor",LastName="Škaro",Email="viktor@email.com",DayOfBirth=DateTime.Parse("29.8.1979."),TelephoneNumber="+3851234567"},
+                new Player{FirstName="Milenko",LastName="Škaro",Email="milenko@email.com",DayOfBirth=DateTime.Parse("3.9.1955."),TelephoneNumber="+38598339307"},
+                new Player{FirstName="Kruno",LastName="Stražanac",Email="kruno@email.com",DayOfBirth=DateTime.Parse("1.1.1985."),TelephoneNumber="+38598123456"},
+                new Player{FirstName="Milan",LastName="Marinić",Email="milan@email.com",DayOfBirth=DateTime.Parse("10.7.1977."),TelephoneNumber="+38591522245"}
             };
             players.ForEach(s => context.Players.Add(s));
             context.SaveChanges();

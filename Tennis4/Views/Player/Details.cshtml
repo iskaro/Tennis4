@@ -27,6 +27,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.DayOfBirth)
         </dt>
 
@@ -43,6 +51,37 @@
         </dd>
     </dl>
 </div>
+
+<div>
+    <table class="table">
+        <tr>
+            <th>
+                Competition
+            </th>
+            <th>
+                Row number
+            </th>
+            <th></th>
+        </tr>
+@foreach (Tennis4.Models.PlayerPositionModel item in ViewBag.PlayerPosition)
+{
+    <tr>
+        <td>
+            @item.CompetitionName
+        </td>
+        <td>
+            @item.RowNumber
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", "CompetitionEnrollment", new { id = item.CompetitionEnrollmentID }, null) |
+            @Html.ActionLink("Details", "Details", "CompetitionEnrollment", new { id = item.CompetitionEnrollmentID }, null) |
+            @Html.ActionLink("Delete", "Delete", "CompetitionEnrollment", new { id = item.CompetitionEnrollmentID }, null)
+        </td>
+    </tr>
+}
+</table>
+</div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")

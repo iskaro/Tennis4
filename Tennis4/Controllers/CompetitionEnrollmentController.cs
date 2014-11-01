@@ -19,16 +19,8 @@ namespace Tennis4.Controllers
         // GET: /CompetitionEnrollment/
         public ActionResult Index()
         {
-            //var competitionenrollments = db.CompetitionEnrollments.Include(c => c.CompetitionRow).Include(c => c.Player);
-
-            //var query = (from ce in db.CompetitionEnrollments
-            //             join p in db.Players on ce.PlayerID equals p.ID
-            //             join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
-            //             join c in db.Competitions on cr.CompetitionID equals c.ID
-            //             where ce.PlayerID == p.ID
-            //             select );
-
-           
+            var competitionenrollments = db.CompetitionEnrollments;
+          
             var query = from p in db.Players
                         join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
                         join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
@@ -42,12 +34,14 @@ namespace Tennis4.Controllers
                             RowNumber = cr.RowNumber
                         };
 
-            ModelCast model = new ModelCast()
-            {
-                PlayerPositions = query.AsEnumerable()
-            };
+            ViewBag.PlayerPositionModel = query.AsEnumerable();
 
-            return View(model);
+            //ModelCast model = new ModelCast()
+            //{
+            //    PlayerPositions = query.AsEnumerable()
+            //};
+
+            return View(competitionenrollments);
         }
 
         // GET: /CompetitionEnrollment/Details/5
@@ -57,12 +51,35 @@ namespace Tennis4.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CompetitionEnrollment competitionenrollment = db.CompetitionEnrollments.Find(id);
-            if (competitionenrollment == null)
-            {
-                return HttpNotFound();
-            }
-            return View(competitionenrollment);
+
+            var query = (from p in db.Players
+                        join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
+                        join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
+                        join c in db.Competitions on cr.CompetitionID equals c.ID
+                        where ce.ID == id
+                        select new PlayerPositionModel
+                        {
+                            CompetitionEnrollmentID = ce.ID,
+                            FirstName = p.FirstName,
+                            LastName = p.LastName,
+                            CompetitionName = c.CompetitionName,
+                            RowNumber = cr.RowNumber
+                        }).Single();
+
+
+            //ModelCast model = new ModelCast()
+            //{
+            //   PlayerPositions = query.AsEnumerable()
+            //};
+
+            //ViewBag.PlayerPositionModel = query.ToList();
+
+            //CompetitionEnrollment competitionenrollment = db.CompetitionEnrollments.Find(id);
+            //if (competitionenrollment == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            return View(query);
         }
 
         // GET: /CompetitionEnrollment/Create
@@ -169,12 +186,27 @@ namespace Tennis4.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CompetitionEnrollment competitionenrollment = db.CompetitionEnrollments.Find(id);
-            if (competitionenrollment == null)
+
+            var query = (from p in db.Players
+                         join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
+                         join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
+                         join c in db.Competitions on cr.CompetitionID equals c.ID
+                         where ce.ID == id
+                         select new PlayerPositionModel
+                         {
+                             CompetitionEnrollmentID = ce.ID,
+                             FirstName = p.FirstName,
+                             LastName = p.LastName,
+                             CompetitionName = c.CompetitionName,
+                             RowNumber = cr.RowNumber
+                         }).Single();
+
+            //CompetitionEnrollment competitionenrollment = db.CompetitionEnrollments.Find(id);
+            if (query == null)
             {
                 return HttpNotFound();
             }
-            return View(competitionenrollment);
+            return View(query);
         }
 
         // POST: /CompetitionEnrollment/Delete/5

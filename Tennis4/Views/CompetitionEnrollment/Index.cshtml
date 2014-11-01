@@ -1,12 +1,7 @@
-﻿@*@model IEnumerable<Tennis4.Models.CompetitionEnrollment>*@
-@model Tennis4.Models.ModelCast
+﻿@model IEnumerable<Tennis4.Models.CompetitionEnrollment>
 
 @{
-    //var FirstName = (ViewBag.PlayerPosition as Tennis4.Models.PlayerPosition).FirstName;
-    //var LastName = (ViewBag.PlayerPosition as Tennis4.Models.PlayerPosition).LastName;
-    //var CompetitionName = (ViewBag.PlayerPosition as Tennis4.Models.PlayerPosition).CompetitionName;
-    //var RowNumber = (ViewBag.PlayerPosition as Tennis4.Models.PlayerPosition).RowNumber;
-     
+    
     ViewBag.Title = "Index";
      
 }
@@ -34,7 +29,7 @@
     </tr>
 
 @*@foreach (var item in Model) {*@
-@foreach (Tennis4.Models.PlayerPositionModel item in Model.PlayerPositions) {
+@foreach (Tennis4.Models.PlayerPositionModel item in ViewBag.PlayerPositionModel) {
     <tr>
         <td>
             @*@Html.DisplayFor(modelItem => item.Player.FirstName)*@

@@ -18,6 +18,7 @@ namespace Tennis4.Models
     public class ModelCast
     {
         public IEnumerable<PlayerPositionModel> PlayerPositions { get; set; }
+        public IQueryable<PlayerPositionModel> playerPositionsModel { get; set; }
     }
 
     public class PlayerIdLastNameFirstName
