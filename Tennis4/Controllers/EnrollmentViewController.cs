@@ -15,29 +15,59 @@ namespace Tennis4.Controllers
         //
         // GET: /EnrollmentView/
         public ActionResult Index(int? competitionId)
-        {
-            var playersQuery = (from p in db.Players
-                                    join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
-                                    join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
-                                    join c in db.Competitions on cr.CompetitionID equals c.ID
-                                        //where c.ID == competitionId
-                                        select p);
+        {           
+            ViewBag.competitionId = new SelectList(db.Competitions, "ID", "CompetitionName");
 
-            ViewBag.Players = playersQuery.AsEnumerable();
-                   
-            var modelQuery = (from p in db.Players
-                              join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
-                              join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
-                              join c in db.Competitions on cr.CompetitionID equals c.ID
-                              select new EnrollmentViewModel {
-                                Players = playersQuery.AsEnumerable(),
-                                CompetitionID = c.ID,
-                                CompetitionName = c.CompetitionName,
-                                CompetitionRowID = cr.ID,
-                                RowNumber = cr.RowNumber
-                              });
+            //var playersQuery = (from p in db.Players
+            //                    join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
+            //                    join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
+            //                    join c in db.Competitions on cr.CompetitionID equals c.ID
+            //                    where c.ID == competitionId
+            //                    select p);
 
-            return View(modelQuery.AsEnumerable());
+            //var capacity = (from c in db.Competitions
+            //                where c.ID == competitionId
+            //                select c.RowCapacity).Single();
+
+            var listOfRows = (from cr in db.CompetitionRows
+                              where cr.CompetitionID == competitionId
+                              select cr.RowNumber);
+
+            //ViewBag.Players = playersQuery.ToList();
+
+            //EnrollmentViewModel model = new EnrollmentViewModel
+            //{
+            //    Players = playersQuery,
+            //    RowNumber = listOfRows.ToList(),
+            //    Capacity = capacity
+            //};
+
+
+
+            var playerQuery = (from p in db.Players
+                                join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
+                                join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
+                                join c in db.Competitions on cr.CompetitionID equals c.ID
+                                where c.ID == competitionId
+                                select new RowViewModel
+                                {
+                                    RowNumber = cr.RowNumber,
+                                    Players = new PlayerView
+                                    {
+                                        PlayerID = p.ID,
+                                        PlayerFullName = p.LastName + ", " + p.FirstName                                        
+                                    }
+                                });
+
+             Dictionary<int, PlayerView> = new Dictionary<int, PlayerView>()
+             {
+                 {1, new PlayerView {PlayerID = 1, PlayerFullName = "asdadad"}}
+             };
+          
+
+
+
+            return View(playerQuery.AsEnumerable());
         }
 	}
 }

@@ -27,9 +27,6 @@
         <th>
             @Html.DisplayNameFor(model => model.RowNumber)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Capacity)
-        </th>
         <th></th>
     </tr>
 
@@ -40,9 +37,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.RowNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Capacity)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

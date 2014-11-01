@@ -5,12 +5,21 @@ using System.Web;
 
 namespace Tennis4.Models
 {
-    public class EnrollmentViewModel
+    //public class EnrollmentViewModel
+    //{
+    //    public IList<RowView> Rows { get; set; }
+    //    public IList<PlayerView> Players { get; set; }
+    //}
+
+    public class PlayerView
     {
-        public IEnumerable<Player> Players { get; set; }
-        public int CompetitionID { get; set; }
-        public string CompetitionName { get; set; }
-        public int CompetitionRowID { get; set; }
+        public int PlayerID { get; set; }
+        public string PlayerFullName { get; set; }
+    }
+
+    public class RowViewModel
+    {
         public int RowNumber { get; set; }
+        public PlayerView Players { get; set; }
     }
 }
