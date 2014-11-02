@@ -18,56 +18,39 @@ namespace Tennis4.Controllers
         {           
             ViewBag.competitionId = new SelectList(db.Competitions, "ID", "CompetitionName");
 
-            //var playersQuery = (from p in db.Players
-            //                    join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
-            //                    join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
-            //                    join c in db.Competitions on cr.CompetitionID equals c.ID
-            //                    where c.ID == competitionId
-            //                    select p);
+            var playerQuery = (from cr in db.CompetitionRows
+                         join ce in db.CompetitionEnrollments on cr.ID equals ce.CompetitionRowID
+                         where cr.CompetitionID == competitionId
+                         group ce.PlayerID by cr.RowNumber into g
+                               select new RowViewModel
+                         {
+                             RowNumber = g.Key,
+                             ListPlayerIds = g.ToList()
+                         });
+            ViewBag.RowsAndIds = playerQuery;
 
-            //var capacity = (from c in db.Competitions
-            //                where c.ID == competitionId
-            //                select c.RowCapacity).Single();
+            var players = from p in db.Players
+                          join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
+                          join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
+                          where cr.CompetitionID == competitionId
+                          select new PlayerViewModel
+                          {
+                              PlayerID = p.ID,
+                              PlayerFullName = p.LastName + ", " + p.FirstName
+                          };
 
-            var listOfRows = (from cr in db.CompetitionRows
-                              where cr.CompetitionID == competitionId
-                              select cr.RowNumber);
+            ViewBag.Players = players.AsEnumerable();
 
-            //ViewBag.Players = playersQuery.ToList();
+            var capacity = (from c in db.Competitions
+                               where c.ID == competitionId
+                               select c.RowCapacity).ToString();
+            int numValue;
 
-            //EnrollmentViewModel model = new EnrollmentViewModel
-            //{
-            //    Players = playersQuery,
-            //    RowNumber = listOfRows.ToList(),
-            //    Capacity = capacity
-            //};
+            Int32.TryParse(capacity, out numValue);
 
-
-
-            var playerQuery = (from p in db.Players
-                                join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
-                                join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
-                                join c in db.Competitions on cr.CompetitionID equals c.ID
-                                where c.ID == competitionId
-                                select new RowViewModel
-                                {
-                                    RowNumber = cr.RowNumber,
-                                    Players = new PlayerView
-                                    {
-                                        PlayerID = p.ID,
-                                        PlayerFullName = p.LastName + ", " + p.FirstName                                        
-                                    }
-                                });
-
-             Dictionary<int, PlayerView> = new Dictionary<int, PlayerView>()
-             {
-                 {1, new PlayerView {PlayerID = 1, PlayerFullName = "asdadad"}}
-             };
-          
-
-
-
-            return View(playerQuery.AsEnumerable());
+            ViewBag.Capacity = numValue;
+            
+            return View(players.AsEnumerable());
         }
 	}
 }

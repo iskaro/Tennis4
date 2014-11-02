@@ -11,7 +11,7 @@ namespace Tennis4.Models
     //    public IList<PlayerView> Players { get; set; }
     //}
 
-    public class PlayerView
+    public class PlayerViewModel
     {
         public int PlayerID { get; set; }
         public string PlayerFullName { get; set; }
@@ -20,6 +20,6 @@ namespace Tennis4.Models
     public class RowViewModel
     {
         public int RowNumber { get; set; }
-        public PlayerView Players { get; set; }
+        public List<int> ListPlayerIds { get; set; }
     }
 }

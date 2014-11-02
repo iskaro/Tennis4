@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Tennis4.Models.RowViewModel>
+﻿@model IEnumerable<Tennis4.Models.PlayerViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -18,16 +18,34 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.RowNumber)
+            Competition Row
         </th>
+        @for (int i = 0; i < ViewBag.Capacity; i++)
+        {
+            <th>
+                Player
+            </th>
+        }
     </tr>
 
-    @foreach (var row in Model)
+    @foreach (Tennis4.Models.RowViewModel row in ViewBag.RowsAndIds)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => row.RowNumber)
+                @row.RowNumber
             </td>
+            @foreach (var item in row.ListPlayerIds)
+            {
+                <td>
+                    @foreach (Tennis4.Models.PlayerViewModel player in ViewBag.Players)
+                    {
+                        if (item == player.PlayerID)
+                        {
+                            @player.PlayerFullName
+                        }
+                    }
+                </td>
+            }
         </tr>
     }
 </table>
