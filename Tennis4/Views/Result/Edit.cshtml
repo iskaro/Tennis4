@@ -1,0 +1,133 @@
+﻿@model Tennis4.Models.Result
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Result</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RoundID, "RoundID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("RoundID", String.Empty)
+                @Html.ValidationMessageFor(model => model.RoundID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Player1ID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Player1ID)
+                @Html.ValidationMessageFor(model => model.Player1ID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Player2ID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Player2ID)
+                @Html.ValidationMessageFor(model => model.Player2ID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Player1SetOneScore, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Player1SetOneScore)
+                @Html.ValidationMessageFor(model => model.Player1SetOneScore)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Player2SetOneScore, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Player2SetOneScore)
+                @Html.ValidationMessageFor(model => model.Player2SetOneScore)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Player1SetTwoScore, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Player1SetTwoScore)
+                @Html.ValidationMessageFor(model => model.Player1SetTwoScore)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Player2SetTwoScore, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Player2SetTwoScore)
+                @Html.ValidationMessageFor(model => model.Player2SetTwoScore)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Player1SetThreeScore, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Player1SetThreeScore)
+                @Html.ValidationMessageFor(model => model.Player1SetThreeScore)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Player2SetThreeScore, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Player2SetThreeScore)
+                @Html.ValidationMessageFor(model => model.Player2SetThreeScore)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Player1SetFourScore, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Player1SetFourScore)
+                @Html.ValidationMessageFor(model => model.Player1SetFourScore)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Player2SetFourScore, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Player2SetFourScore)
+                @Html.ValidationMessageFor(model => model.Player2SetFourScore)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Player1SetFiveScore, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Player1SetFiveScore)
+                @Html.ValidationMessageFor(model => model.Player1SetFiveScore)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Player2SetFiveScore, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Player2SetFiveScore)
+                @Html.ValidationMessageFor(model => model.Player2SetFiveScore)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

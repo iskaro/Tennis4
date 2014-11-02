@@ -42,7 +42,7 @@ namespace Tennis4.Controllers
             if (!String.IsNullOrEmpty(CompetitionNames))
             {
                 int compID = Int32.Parse(CompetitionNames);
-                listOfRows = db.CompetitionRows.Where(cr => cr.CompetitionID == compID).ToList();
+                listOfRows = db.CompetitionRows.Where(cr => cr.Round.CompetitionID == compID).ToList();
             }
       
             //var competitionrows = db.CompetitionRows.Include(c => c.Competition);
@@ -76,7 +76,7 @@ namespace Tennis4.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,RowNumber,Capacity,CompetitionID")] CompetitionRow competitionrow)
+        public ActionResult Create([Bind(Include = "ID,RowNumber,RoundID")] CompetitionRow competitionrow)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Tennis4.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CompetitionID = new SelectList(db.Competitions, "ID", "CompetitionName", competitionrow.CompetitionID);
+            ViewBag.CompetitionID = new SelectList(db.Competitions, "ID", "CompetitionName", competitionrow.Round.CompetitionID);
             return View(competitionrow);
         }
 
@@ -101,7 +101,7 @@ namespace Tennis4.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CompetitionID = new SelectList(db.Competitions, "ID", "CompetitionName", competitionrow.CompetitionID);
+            ViewBag.CompetitionID = new SelectList(db.Competitions, "ID", "CompetitionName", competitionrow.Round.CompetitionID);
             return View(competitionrow);
         }
 
@@ -110,7 +110,7 @@ namespace Tennis4.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,RowNumber,Capacity,CompetitionID")] CompetitionRow competitionrow)
+        public ActionResult Edit([Bind(Include="ID,RowNumber,RoundID")] CompetitionRow competitionrow)
         {
             if (ModelState.IsValid)
             {
@@ -118,7 +118,7 @@ namespace Tennis4.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CompetitionID = new SelectList(db.Competitions, "ID", "CompetitionName", competitionrow.CompetitionID);
+            ViewBag.CompetitionID = new SelectList(db.Competitions, "ID", "CompetitionName", competitionrow.Round.CompetitionID);
             return View(competitionrow);
         }
 
@@ -152,7 +152,7 @@ namespace Tennis4.Controllers
         [HttpPost]
         public JsonResult doesRowInCompetitionExist(int RowNumber, int? CompetitionID)
         {
-            return Json(!db.CompetitionRows.Where(row => (row.CompetitionID == CompetitionID)).Any(row => row.RowNumber == RowNumber), JsonRequestBehavior.AllowGet);
+            return Json(!db.CompetitionRows.Where(row => (row.Round.CompetitionID == CompetitionID)).Any(row => row.RowNumber == RowNumber), JsonRequestBehavior.AllowGet);
         }
 
 

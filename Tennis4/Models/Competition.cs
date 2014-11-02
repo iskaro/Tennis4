@@ -11,7 +11,10 @@ namespace Tennis4.Models
 
         [Range(1, 100)]
         public int RowCapacity { get; set; }
+        public int SetsNumber { get; set; }
+        public int GamesNumber { get; set; }
 
         public virtual ICollection<CompetitionRow> CompetitionRows { get; set; }
+        public virtual ICollection<Round> Rounds { get; set; }
     }
 }

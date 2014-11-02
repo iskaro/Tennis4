@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Tennis4.Models.Result>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Round.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player1ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player2ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player1SetOneScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player2SetOneScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player1SetTwoScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player2SetTwoScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player1SetThreeScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player2SetThreeScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player1SetFourScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player2SetFourScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player1SetFiveScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player2SetFiveScore)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Round.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player1ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player2ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player1SetOneScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player2SetOneScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player1SetTwoScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player2SetTwoScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player1SetThreeScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player2SetThreeScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player1SetFourScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player2SetFourScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player1SetFiveScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player2SetFiveScore)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -14,13 +14,19 @@ namespace Tennis4.Controllers
 
         //
         // GET: /EnrollmentView/
-        public ActionResult Index(int? competitionId)
-        {           
-            ViewBag.competitionId = new SelectList(db.Competitions, "ID", "CompetitionName");
+        public ActionResult Index(int? competitionId, int? roundId)
+        {
+            if (competitionId == null)
+            {
+                competitionId = 1;
+            }
+            ViewBag.competitionId = new SelectList(db.Competitions, "ID", "CompetitionName", competitionId);
+            ViewBag.roundId = new SelectList(db.Rounds, "ID", "RoundName", roundId);
 
             var playerQuery = (from cr in db.CompetitionRows
                          join ce in db.CompetitionEnrollments on cr.ID equals ce.CompetitionRowID
-                         where cr.CompetitionID == competitionId
+                         where cr.Round.CompetitionID == competitionId
+                         where cr.Round.ID == roundId
                          group ce.PlayerID by cr.RowNumber into g
                                select new RowViewModel
                          {
@@ -32,7 +38,7 @@ namespace Tennis4.Controllers
             var players = from p in db.Players
                           join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
                           join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
-                          where cr.CompetitionID == competitionId
+                          where cr.Round.CompetitionID == competitionId
                           select new PlayerViewModel
                           {
                               PlayerID = p.ID,
@@ -41,14 +47,11 @@ namespace Tennis4.Controllers
 
             ViewBag.Players = players.AsEnumerable();
 
-            var capacity = (from c in db.Competitions
+            int capacity = (from c in db.Competitions
                                where c.ID == competitionId
-                               select c.RowCapacity).ToString();
-            int numValue;
+                               select c.RowCapacity).Single();
 
-            Int32.TryParse(capacity, out numValue);
-
-            ViewBag.Capacity = numValue;
+            ViewBag.Capacity = capacity;
             
             return View(players.AsEnumerable());
         }

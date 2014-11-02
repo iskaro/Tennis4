@@ -8,13 +8,15 @@ namespace Tennis4.Models
     public class CompetitionRow
     {
         public int ID { get; set; }
-        public int CompetitionID { get; set; }
+
+        public int RoundID { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "The value must be greater than 1")]
-        [Remote("doesRowInCompetitionExist", "CompetitionRow", AdditionalFields = "CompetitionID", HttpMethod = "POST", ErrorMessage = "Row already exists. Please enter a different.")]
+        //[Remote("doesRowInCompetitionExist", "CompetitionRow", AdditionalFields = "CompetitionID", HttpMethod = "POST", ErrorMessage = "Row already exists. Please enter a different.")]
         public int RowNumber { get; set; }
         
-        public virtual Competition Competition { get; set; }
+
         public virtual ICollection<CompetitionEnrollment> CompetitionEnrollment { get; set; }
+        public virtual Round Round { get; set; }
     }
 }

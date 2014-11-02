@@ -18,6 +18,8 @@ namespace Tennis4.DAL
         public DbSet<CompetitionEnrollment> CompetitionEnrollments { get; set; }
         public DbSet<Competition> Competitions { get; set; }
         public DbSet<CompetitionRow> CompetitionRows { get; set; }
+        public DbSet<Round> Rounds { get; set; }
+        public DbSet<Result> Results { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

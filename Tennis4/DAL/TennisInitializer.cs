@@ -42,28 +42,36 @@ namespace Tennis4.DAL
 
             var competitions = new List<Competition>
             {
-                new Competition{CompetitionName="Ljetna piramida 2014", RowCapacity = 4},
-                new Competition{CompetitionName="Zimska piramida 2014", RowCapacity = 6},
+                new Competition{CompetitionName="Ljetna piramida 2014", RowCapacity = 4, SetsNumber = 1, GamesNumber = 9},
+                new Competition{CompetitionName="Zimska piramida 2014", RowCapacity = 6, SetsNumber = 1, GamesNumber = 9},
             };
             competitions.ForEach(s => context.Competitions.Add(s));
             context.SaveChanges();
 
+
+            var rounds = new List<Round>
+            {
+                new Round{CompetitionID=1, RoundNumber=1, DateFrom=DateTime.Parse("1.6.2014."), DateTo=DateTime.Parse("7.6.2014.")},
+                new Round{CompetitionID=2, RoundNumber=1, DateFrom=DateTime.Parse("30.10.2014."), DateTo=DateTime.Parse("5.11.2014.")},
+            };
+            rounds.ForEach(s => context.Rounds.Add(s));
+            context.SaveChanges();
 
 
 
             var competitionRows = new List<CompetitionRow>
             {
                 //Competition 1
-                new CompetitionRow{RowNumber=1, CompetitionID=1},
-                new CompetitionRow{RowNumber=2, CompetitionID=1},
-                new CompetitionRow{RowNumber=3, CompetitionID=1},
-                new CompetitionRow{RowNumber=4, CompetitionID=1},
-                new CompetitionRow{RowNumber=5, CompetitionID=1},
+                new CompetitionRow{RowNumber=1, RoundID=1},
+                new CompetitionRow{RowNumber=2, RoundID=1},
+                new CompetitionRow{RowNumber=3, RoundID=1},
+                new CompetitionRow{RowNumber=4, RoundID=1},
+                new CompetitionRow{RowNumber=5, RoundID=1},
 
                 //Competition 2
-                new CompetitionRow{RowNumber=1, CompetitionID=2},
-                new CompetitionRow{RowNumber=2, CompetitionID=2},
-                new CompetitionRow{RowNumber=3, CompetitionID=2},
+                new CompetitionRow{RowNumber=1, RoundID=2},
+                new CompetitionRow{RowNumber=2, RoundID=2},
+                new CompetitionRow{RowNumber=3, RoundID=2},
             };
             competitionRows.ForEach(s => context.CompetitionRows.Add(s));
             context.SaveChanges();
@@ -117,6 +125,7 @@ namespace Tennis4.DAL
             };
             competitionEnrollments.ForEach(s => context.CompetitionEnrollments.Add(s));
             context.SaveChanges();
+
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Tennis4.Controllers
             var query = from p in db.Players
                         join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
                         join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
-                        join c in db.Competitions on cr.CompetitionID equals c.ID
+                        join c in db.Competitions on cr.Round.CompetitionID equals c.ID
                         select new PlayerPositionModel
                         {
                             CompetitionEnrollmentID = ce.ID,
@@ -55,7 +55,8 @@ namespace Tennis4.Controllers
             var query = (from p in db.Players
                         join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
                         join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
-                        join c in db.Competitions on cr.CompetitionID equals c.ID
+                        join ro in db.Rounds on cr.RoundID equals ro.ID
+                        join c in db.Competitions on ro.CompetitionID equals c.ID
                         where ce.ID == id
                         select new PlayerPositionModel
                         {
@@ -113,7 +114,7 @@ namespace Tennis4.Controllers
         public JsonResult GetRows (string Id) 
         {
             var queryRows = from cr in db.CompetitionRows
-                            where SqlFunctions.StringConvert((double)cr.CompetitionID).Trim() == Id
+                            where SqlFunctions.StringConvert((double)cr.Round.CompetitionID).Trim() == Id
                             select new
                             {
                                 cr.ID,
@@ -190,7 +191,7 @@ namespace Tennis4.Controllers
             var query = (from p in db.Players
                          join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
                          join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
-                         join c in db.Competitions on cr.CompetitionID equals c.ID
+                         join c in db.Competitions on cr.Round.CompetitionID equals c.ID
                          where ce.ID == id
                          select new PlayerPositionModel
                          {

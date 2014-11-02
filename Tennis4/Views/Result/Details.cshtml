@@ -1,0 +1,122 @@
+﻿@model Tennis4.Models.Result
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Result</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Round.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Round.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player1ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player1ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player2ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player2ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player1SetOneScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player1SetOneScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player2SetOneScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player2SetOneScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player1SetTwoScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player1SetTwoScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player2SetTwoScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player2SetTwoScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player1SetThreeScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player1SetThreeScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player2SetThreeScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player2SetThreeScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player1SetFourScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player1SetFourScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player2SetFourScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player2SetFourScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player1SetFiveScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player1SetFiveScore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Player2SetFiveScore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Player2SetFiveScore)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

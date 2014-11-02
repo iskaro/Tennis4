@@ -236,8 +236,9 @@
     <Compile Include="Controllers\CompetitionRowController.cs" />
     <Compile Include="Controllers\EnrollmentViewController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
-    <Compile Include="Models\EnrollmentViewModel.cs" />
-    <Compile Include="Models\PlayerPositionModel.cs" />
+    <Compile Include="Controllers\ResultController.cs" />
+    <Compile Include="Controllers\RoundController.cs" />
+    <Compile Include="Models\HelperViewModels.cs" />
     <Compile Include="DAL\TennisContext.cs" />
     <Compile Include="DAL\TennisInitializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -247,6 +248,8 @@
     <Compile Include="Models\CompetitionEnrollment.cs" />
     <Compile Include="Models\CompetitionRow.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Result.cs" />
+    <Compile Include="Models\Round.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -268,6 +271,16 @@
     <Content Include="Views\CompetitionEnrollment\Edit.cshtml" />
     <Content Include="Views\CompetitionEnrollment\Index.cshtml" />
     <Content Include="Views\EnrollmentView\Index.cshtml" />
+    <Content Include="Views\Round\Create.cshtml" />
+    <Content Include="Views\Round\Delete.cshtml" />
+    <Content Include="Views\Round\Details.cshtml" />
+    <Content Include="Views\Round\Edit.cshtml" />
+    <Content Include="Views\Round\Index.cshtml" />
+    <Content Include="Views\Result\Create.cshtml" />
+    <Content Include="Views\Result\Delete.cshtml" />
+    <Content Include="Views\Result\Details.cshtml" />
+    <Content Include="Views\Result\Edit.cshtml" />
+    <Content Include="Views\Result\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -75,7 +75,7 @@ namespace Tennis4.Controllers
             var query = from p in db.Players
                         join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
                         join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
-                        join c in db.Competitions on cr.CompetitionID equals c.ID
+                        join c in db.Competitions on cr.Round.CompetitionID equals c.ID
                         where p.ID == id
                         select new PlayerPositionModel
                         {
