@@ -19,9 +19,10 @@ namespace Tennis4.Controllers
             if (competitionId == null)
             {
                 competitionId = 1;
+                roundId = 1;
             }
             ViewBag.competitionId = new SelectList(db.Competitions, "ID", "CompetitionName", competitionId);
-            ViewBag.roundId = new SelectList(db.Rounds, "ID", "RoundName", roundId);
+            ViewBag.roundId = new SelectList(db.Rounds, "ID", "RoundNumber", roundId);
 
             var playerQuery = (from cr in db.CompetitionRows
                          join ce in db.CompetitionEnrollments on cr.ID equals ce.CompetitionRowID

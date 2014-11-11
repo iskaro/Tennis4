@@ -213,3 +213,5 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+Tennis4/App_Data/Tennis4.mdf
+Tennis4/App_Data/Tennis4_log.ldf
