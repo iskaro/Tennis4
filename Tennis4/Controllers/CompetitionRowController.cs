@@ -89,6 +89,15 @@ namespace Tennis4.Controllers
             return View(competitionrow);
         }
 
+        //public ActionResult AjaxValidation(int rowNumber)
+        //{
+        //    if (Request.IsAjaxRequest())
+        //    {
+        //        db.CompetitionRows.Where(row => (row.CompetitionID == CompetitionID)).Any(row => row.RowNumber == RowNumber)
+        //    }
+
+        //}
+
         // GET: /CompetitionRow/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -150,6 +159,7 @@ namespace Tennis4.Controllers
 
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
         [HttpPost]
+        
         public JsonResult doesRowInCompetitionExist(int RowNumber, int? CompetitionID)
         {
             return Json(!db.CompetitionRows.Where(row => (row.CompetitionID == CompetitionID)).Any(row => row.RowNumber == RowNumber), JsonRequestBehavior.AllowGet);

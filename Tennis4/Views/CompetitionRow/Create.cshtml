@@ -80,6 +80,25 @@
     ////    //});
     //});
 
+    $(document).ready(function () {
+        $("#CompetitionID").change(function () {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("doesRowInCompetitionExist", "CompetitionRow")",
+                data: {
+                    RowNumber: $("#RowNumber").val(),
+                    CompetitionID: $("#CompetitionID").val()
+                },
+                success: function (data) {
+                    if (data == true) {
+                        $("#RowNumber-error").attr("class", "field-validation-success");
+                    }
+                }
+            });
+        
+        });
+    });
+
 
 
 
