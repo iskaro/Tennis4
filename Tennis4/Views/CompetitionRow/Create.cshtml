@@ -17,10 +17,25 @@
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CompetitionID, "CompetitionID", new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Round.CompetitionID, "CompetitionID", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CompetitionID", String.Empty)
-                @Html.ValidationMessageFor(model => model.CompetitionID)
+                @Html.DropDownList("CompetitionID", ViewBag.CompetitionID as SelectList, String.Empty, new { id = "Competition" })
+                @Html.ValidationMessageFor(model => model.Round.CompetitionID)
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.RoundID, "RoundID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("RoundID", String.Empty)
+                @Html.ValidationMessageFor(model => model.RoundID)
+            </div>
+        </div>*@
+
+        <div class="form-group" id="RowDivID">
+            @Html.LabelFor(model => model.RoundID, "RoundID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="Round" name="Round"></select>
             </div>
         </div>
 
@@ -47,6 +62,7 @@
 <script src="~/Scripts/jquery-2.1.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="@Url.Content("~/Scripts/CompetitionRound.js")"></script>
 @*<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script src="~/Scripts/jquery.validate-vsdoc.js"></script>**@
 @*<script src="~/Scripts/ValidationAdditionalFields.js"></script>*@

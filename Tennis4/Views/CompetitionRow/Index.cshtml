@@ -22,7 +22,7 @@
 <table class="table">
     <tr>
         <th>
-            @*@Html.DisplayNameFor(model => model.Competition.CompetitionName)*@
+            @Html.DisplayNameFor(model => model.Round.Competition.CompetitionName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.RowNumber)
@@ -33,7 +33,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @*@Html.DisplayFor(modelItem => item.Competition.CompetitionName)*@
+            @Html.DisplayFor(modelItem => item.Round.Competition.CompetitionName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.RowNumber)

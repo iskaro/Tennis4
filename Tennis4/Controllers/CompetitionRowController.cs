@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Tennis4.Models;
 using Tennis4.DAL;
 using System.Web.UI;
+using System.Data.Entity.SqlServer;
 
 namespace Tennis4.Controllers
 {
@@ -68,6 +69,7 @@ namespace Tennis4.Controllers
         public ActionResult Create()
         {
             ViewBag.CompetitionID = new SelectList(db.Competitions, "ID", "CompetitionName");
+            ViewBag.RoundID = new SelectList(db.Rounds, "ID", "RoundNumber");
             return View();
         }
 
@@ -87,6 +89,22 @@ namespace Tennis4.Controllers
 
             ViewBag.CompetitionID = new SelectList(db.Competitions, "ID", "CompetitionName", competitionrow.Round.CompetitionID);
             return View(competitionrow);
+        }
+
+        // JSON: /CompetitionRow/Create
+        public JsonResult GetRounds(string Id)
+        {
+            var queryRows = from ro in db.Rounds
+                            where SqlFunctions.StringConvert((double)ro.CompetitionID).Trim() == Id
+                            select new
+                            {
+                                ro.ID,
+                                ro.RoundNumber
+                            };
+
+            var listOfRounds = new SelectList(queryRows.AsEnumerable(), "ID", "RoundNumber");
+
+            return Json(listOfRounds, JsonRequestBehavior.AllowGet);
         }
 
         // GET: /CompetitionRow/Edit/5

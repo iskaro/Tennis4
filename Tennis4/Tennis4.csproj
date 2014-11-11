@@ -148,6 +148,7 @@
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CompetitionRound.js" />
     <Content Include="Scripts\CompetitionRow.js" />
     <Content Include="Scripts\DateTimePicker.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -303,7 +304,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>15434</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
