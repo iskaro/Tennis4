@@ -30,8 +30,10 @@ namespace Tennis4.Controllers
 
             //var competitionrows = from c in db.CompetitionRows
             //                      select c;
+            
 
             ViewBag.CompetitionNames = new SelectList(db.Competitions, "ID", "CompetitionName");
+            //ViewBag.Rounds = new SelectList(db.Rounds.Where(x => x.CompetitionID == compID), "ID", "RoundNumber");
 
             //if (!String.IsNullOrEmpty(CompetitionNames))
             //{

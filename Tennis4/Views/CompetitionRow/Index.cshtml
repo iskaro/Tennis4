@@ -11,13 +11,19 @@
 </p>
 
 @using (Html.BeginForm("Index", "CompetitionRow", FormMethod.Get))
-    {
-        <p>
-            Pretraga: @Html.DropDownList("CompetitionNames", "Choose competition")
-            <input type="submit" value="Select" />
-        </p>
+{
+    <p id="CompetitionSearch">
+        Competition: @Html.DropDownList("CompetitionNames", "Choose competition")
+        <input type="submit" value="Select" />
+    </p>
 
-    } 
+    <p id="RoundSearch">
+        @*Competition: @Html.DropDownList("Rounds", "Choose round")
+        <input type="submit" value="Select" />*@
+    </p>
+
+
+}
 
 <table class="table">
     <tr>
@@ -30,20 +36,42 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Round.Competition.CompetitionName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RowNumber)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Round.Competition.CompetitionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RowNumber)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<script src="~/Scripts/jquery-2.1.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#CompetitionSearch').change(function () {
+            $.getJSON('/CompetitionRow/GetRounds/' + $('#CompetitionSearch').val(), function (data) {
+                var items = '<option>Select round</option>';
+                $.each(data, function (i, round) {
+                    items += "<option value='" + round.Value + "'>" + round.Text + "</option>";
+                });
+                $('#RoundSearch').html(items);
+            });
+        });
+    });
+
+</script>
+
