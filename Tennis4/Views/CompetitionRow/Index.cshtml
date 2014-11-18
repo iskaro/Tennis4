@@ -12,15 +12,16 @@
 
 @using (Html.BeginForm("Index", "CompetitionRow", FormMethod.Get))
 {
-    <p id="CompetitionSearch">
-        Competition: @Html.DropDownList("CompetitionNames", "Choose competition")
-        <input type="submit" value="Select" />
-    </p>
+    <div>
+        Competition: @Html.DropDownList("CompetitionNames", ViewBag.CompetitionNames as SelectList, "Choose competition", new { id = "CompetitionSearch" })
+        
+    </div>
 
-    <p id="RoundSearch">
-        @*Competition: @Html.DropDownList("Rounds", "Choose round")
-        <input type="submit" value="Select" />*@
-    </p>
+    <span>
+        Round: <select id="RoundSearch"></select>
+        @*Round: @Html.DropDownList("Rounds", "Choose round")*@
+        <input type="submit" value="Select" />
+    </span>
 
 
 }
