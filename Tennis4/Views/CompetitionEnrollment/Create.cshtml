@@ -29,17 +29,38 @@
             @Html.Label("Competition name", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @*@Html.DropDownList("CompetitionListID", String.Empty)*@
-                @Html.DropDownList("CompetitionListID", ViewBag.CompetitionListID as SelectList, String.Empty, new { id = "Competition" })
+                @Html.DropDownList("CompetitionListID", ViewBag.CompetitionListID as SelectList, "Select competition", new { id = "Competition" })
                 @*@Html.ValidationMessageFor(model => model.CompetitionRowID)*@
             </div>
         </div>
 
-        <div class="form-group" id="RowDivID">
-            @Html.Label("Row", new { @class = "control-label col-md-2" })
+        <div class="form-group" id="RoundDiv" hidden>
+            @Html.Label("Round", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select id="Row" name="CompetitionRowID"></select>
+                <select id="Round" name="Round"></select>
             </div>
         </div>
+
+        <div class="form-group" id="RowDiv" hidden>
+            @Html.Label("Row", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="Row" name="Row"></select>
+            </div>
+        </div>
+
+        <div class="form-group" id="PositionDiv" hidden>
+            @Html.Label("RowPosition", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="RowPosition" name="RowPosition"></select>
+            </div>
+        </div>
+
+
+
+
+
+
+
         @*<input type="submit" value="Submit" />*@
 
         @*<div class="form-group">
@@ -50,6 +71,7 @@
                 @Html.ValidationMessageFor(model => model.CompetitionRowID)
             </>
         </div>*@
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

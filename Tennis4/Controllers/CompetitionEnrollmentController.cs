@@ -31,7 +31,9 @@ namespace Tennis4.Controllers
                             FirstName = p.FirstName,
                             LastName = p.LastName,
                             CompetitionName = c.CompetitionName,
-                            RowNumber = cr.RowNumber
+                            RoundNumber = cr.Round.RoundNumber,
+                            RowNumber = cr.RowNumber,
+                            CompetitionRowPosition = ce.CompetitionRowPosition
                         };
 
             ViewBag.PlayerPositionModel = query.AsEnumerable();
@@ -100,6 +102,8 @@ namespace Tennis4.Controllers
             //***** Select list of competitions for dropdown list ****
             ViewBag.CompetitionListID = new SelectList(db.Competitions.AsEnumerable(), "ID", "CompetitionName");
 
+            //ViewBag.CompetitionRowPosition = new SelectList(db.)
+
             //**** Select list of rows for dropdown list ****
             //var rowQuery = from cr in db.CompetitionRows
             //               where cr.
@@ -111,19 +115,56 @@ namespace Tennis4.Controllers
         }
 
         // JSON: /CompetitionEnrollment/Create
-        public JsonResult GetRows (string Id) 
+        public JsonResult GetRounds(int Id)
+        {
+            var queryRounds = from ro in db.Rounds
+                            where ro.CompetitionID == Id
+                            select new
+                            {
+                                ro.ID,
+                                ro.RoundNumber
+                            };
+
+            var listOfRounds = new SelectList(queryRounds.AsEnumerable(), "ID", "RoundNumber");
+
+            return Json(listOfRounds, JsonRequestBehavior.AllowGet);
+        }
+        
+        public JsonResult GetRows (int Id) 
         {
             var queryRows = from cr in db.CompetitionRows
-                            where SqlFunctions.StringConvert((double)cr.Round.CompetitionID).Trim() == Id
+                            where cr.RoundID == Id
                             select new
                             {
                                 cr.ID,
-                                cr.RowNumber
+                                cr.RowNumber,
                             };
 
             var listOfRows = new SelectList(queryRows.AsEnumerable(), "ID", "RowNumber");
 
             return Json(listOfRows, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetRowPositions(int Id)
+        {
+            var queryRowPositions = (from c in db.Competitions
+                                     where c.ID == Id
+                                     select c.RowCapacity).Single();
+
+            List<SelectListItem> capacityList = new List<SelectListItem>();
+
+            for (int i = 1; i <= queryRowPositions; i++)
+            {
+                capacityList.Add(new SelectListItem
+                {
+                    Text = i.ToString(),
+                    Value = i.ToString()
+                });
+            }
+
+
+
+            return Json(capacityList.AsEnumerable(), JsonRequestBehavior.AllowGet);
         }
 
         // POST: /CompetitionEnrollment/Create

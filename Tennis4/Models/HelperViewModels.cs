@@ -11,7 +11,9 @@ namespace Tennis4.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CompetitionName { get; set; }
+        public int RoundNumber { get; set; }
         public int RowNumber { get; set; }
+        public int CompetitionRowPosition { get; set; }
     }
 
     public class ModelCast

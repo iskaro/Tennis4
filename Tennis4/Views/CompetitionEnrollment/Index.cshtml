@@ -23,7 +23,13 @@
             Competition Name
         </th>
         <th>
+            Round
+        </th>
+        <th>
             Row Number
+        </th>
+        <th>
+            Row Position
         </th>
         <th></th>
     </tr>
@@ -44,8 +50,16 @@
             @item.CompetitionName
         </td>
         <td>
+            @*@Html.DisplayFor(modelItem => item.)*@
+            @item.RoundNumber
+        </td>
+        <td>
             @*@Html.DisplayFor(modelItem => item.CompetitionRow.RowNumber)*@
             @item.RowNumber
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.CompetitionEnrollment.CompetitionRowPosition)*@
+            @item.CompetitionRowPosition
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CompetitionEnrollmentID }) |
