@@ -20,6 +20,7 @@ namespace Tennis4.DAL
         public DbSet<CompetitionRow> CompetitionRows { get; set; }
         public DbSet<Round> Rounds { get; set; }
         public DbSet<Result> Results { get; set; }
+        public DbSet<AttackerOddEven> AttackerOddEven { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

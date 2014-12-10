@@ -239,6 +239,7 @@
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
     <Compile Include="Controllers\RoundController.cs" />
+    <Compile Include="Models\AttackerOddEven.cs" />
     <Compile Include="Models\HelperViewModels.cs" />
     <Compile Include="DAL\TennisContext.cs" />
     <Compile Include="DAL\TennisInitializer.cs" />

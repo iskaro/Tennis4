@@ -11,6 +11,7 @@ namespace Tennis4.Models
         public int ID { get; set; }
         public int CompetitionID { get; set; }
         public int RoundNumber { get; set; }
+        public int AttackerOddEvenID { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime DateFrom { get; set; }
