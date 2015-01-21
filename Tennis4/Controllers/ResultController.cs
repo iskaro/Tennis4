@@ -18,8 +18,22 @@ namespace Tennis4.Controllers
         // GET: /Result/
         public ActionResult Index()
         {
+            //ViewBag.Players = db.Players;
             var results = db.Results.Include(r => r.Round);
             return View(results.ToList());
+
+            //var query = from r in db.Results
+            //            join p in db.Players on new { r.Player1ID, r.Player2ID } equals new { p.ID}
+            //            select new ResultsViewListModel
+            //            {
+            //                ResultID = r.ID,
+            //                RoundID = r.RoundID,
+            //                Player1FullName = p.FirstName + " " + p.LastName,
+            //                Player2FullName = p.FirstName + " " + p.LastName,
+            //                Player1SetOneScore = r.Player1SetOneScore,
+            //                Player2SetOneScore = r.Player2SetOneScore
+            //            };
+
         }
 
         // GET: /Result/Details/5
@@ -128,6 +142,13 @@ namespace Tennis4.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        //POST: /Results/DrawRound
+        public ActionResult DrawRound()
+        {
+
+            return View();
         }
     }
 }

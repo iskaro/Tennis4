@@ -39,4 +39,22 @@ namespace Tennis4.Models
         public int RowNumber { get; set; }
         public List<int> ListPlayerIds { get; set; }
     }
+
+    //public class ResultsViewListModel
+    //{
+    //    public int ResultID { get; set; }
+    //    public int RoundID { get; set; }
+    //    public string Player1FullName { get; set; }
+    //    public string Player2FullName { get; set; }
+    //    public int Player1SetOneScore { get; set; }
+    //    public int Player2SetOneScore { get; set; }
+    //    public int Player1SetTwoScore { get; set; }
+    //    public int Player2SetTwoScore { get; set; }
+    //    public int Player1SetThreeScore { get; set; }
+    //    public int Player2SetThreeScore { get; set; }
+    //    public int Player1SetFourScore { get; set; }
+    //    public int Player2SetFourScore { get; set; }
+    //    public int Player1SetFiveScore { get; set; }
+    //    public int Player2SetFiveScore { get; set; }
+    //}
 }
