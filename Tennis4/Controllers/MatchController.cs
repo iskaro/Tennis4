@@ -11,116 +11,124 @@ using Tennis4.DAL;
 
 namespace Tennis4.Controllers
 {
-    public class ResultController : Controller
+    public class MatchController : Controller
     {
         private TennisContext db = new TennisContext();
 
-        // GET: /Result/
+        // GET: /Match/
         public ActionResult Index()
         {
-            var results = db.Results.Include(r => r.Match).Include(r => r.Player);
-            return View(results.ToList());
+            var matches = db.Matches.Include(m => m.Round);
+
+            var player1 = from p in db.Players
+                          join r in db.Results on p.ID equals r.PlayerID
+                          select new
+                          {
+                              playerID = p.ID,
+                              scoreSet1 = r.ScoreSet1
+                          };
+
+
+
+
+            return View(matches.ToList());
         }
 
-        // GET: /Result/Details/5
+        // GET: /Match/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Result result = db.Results.Find(id);
-            if (result == null)
+            Match match = db.Matches.Find(id);
+            if (match == null)
             {
                 return HttpNotFound();
             }
-            return View(result);
+            return View(match);
         }
 
-        // GET: /Result/Create
+        // GET: /Match/Create
         public ActionResult Create()
         {
-            ViewBag.MatchID = new SelectList(db.Matches, "ID", "ID");
-            ViewBag.PlayerID = new SelectList(db.Players, "ID", "FirstName");
+            ViewBag.RoundID = new SelectList(db.Rounds, "ID", "ID");
             return View();
         }
 
-        // POST: /Result/Create
+        // POST: /Match/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,MatchID,PlayerID,ScoreSet1,ScoreSet2,ScoreSet3")] Result result)
+        public ActionResult Create([Bind(Include="ID,RoundID")] Match match)
         {
             if (ModelState.IsValid)
             {
-                db.Results.Add(result);
+                db.Matches.Add(match);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MatchID = new SelectList(db.Matches, "ID", "ID", result.MatchID);
-            ViewBag.PlayerID = new SelectList(db.Players, "ID", "FirstName", result.PlayerID);
-            return View(result);
+            ViewBag.RoundID = new SelectList(db.Rounds, "ID", "ID", match.RoundID);
+            return View(match);
         }
 
-        // GET: /Result/Edit/5
+        // GET: /Match/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Result result = db.Results.Find(id);
-            if (result == null)
+            Match match = db.Matches.Find(id);
+            if (match == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.MatchID = new SelectList(db.Matches, "ID", "ID", result.MatchID);
-            ViewBag.PlayerID = new SelectList(db.Players, "ID", "FirstName", result.PlayerID);
-            return View(result);
+            ViewBag.RoundID = new SelectList(db.Rounds, "ID", "ID", match.RoundID);
+            return View(match);
         }
 
-        // POST: /Result/Edit/5
+        // POST: /Match/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,MatchID,PlayerID,ScoreSet1,ScoreSet2,ScoreSet3")] Result result)
+        public ActionResult Edit([Bind(Include="ID,RoundID")] Match match)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(result).State = EntityState.Modified;
+                db.Entry(match).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MatchID = new SelectList(db.Matches, "ID", "ID", result.MatchID);
-            ViewBag.PlayerID = new SelectList(db.Players, "ID", "FirstName", result.PlayerID);
-            return View(result);
+            ViewBag.RoundID = new SelectList(db.Rounds, "ID", "ID", match.RoundID);
+            return View(match);
         }
 
-        // GET: /Result/Delete/5
+        // GET: /Match/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Result result = db.Results.Find(id);
-            if (result == null)
+            Match match = db.Matches.Find(id);
+            if (match == null)
             {
                 return HttpNotFound();
             }
-            return View(result);
+            return View(match);
         }
 
-        // POST: /Result/Delete/5
+        // POST: /Match/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Result result = db.Results.Find(id);
-            db.Results.Remove(result);
+            Match match = db.Matches.Find(id);
+            db.Matches.Remove(match);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -19,6 +19,7 @@ namespace Tennis4.DAL
         public DbSet<Competition> Competitions { get; set; }
         public DbSet<CompetitionRow> CompetitionRows { get; set; }
         public DbSet<Round> Rounds { get; set; }
+        public DbSet<Match> Matches { get; set; }
         public DbSet<Result> Results { get; set; }
         public DbSet<AttackerOddEven> AttackerOddEven { get; set; }
 

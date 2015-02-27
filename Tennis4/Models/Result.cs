@@ -9,21 +9,12 @@ namespace Tennis4.Models
     public class Result
     {
         public int ID { get; set; }
-        public int RoundID { get; set; }
-        public int Player1ID { get; set; }
-        public int Player2ID { get; set; }
-        public int Player1SetOneScore { get; set; }
-        public int Player2SetOneScore { get; set; }
-        public int Player1SetTwoScore { get; set; }
-        public int Player2SetTwoScore { get; set; }
-        public int Player1SetThreeScore { get; set; }
-        public int Player2SetThreeScore { get; set; }
-        public int Player1SetFourScore { get; set; }
-        public int Player2SetFourScore { get; set; }
-        public int Player1SetFiveScore { get; set; }
-        public int Player2SetFiveScore { get; set; }
-
-        public virtual Round Round { get; set; }
-        public virtual ICollection<Player> Players { get; set; }
+        public int MatchID { get; set; }
+        public int PlayerID { get; set; }
+        public int ScoreSet1 { get; set; }
+        public int ScoreSet2 { get; set; }
+        public int ScoreSet3 { get; set; }
+        public virtual Player Player { get; set; }
+        public virtual Match Match { get; set; }
     }
 }

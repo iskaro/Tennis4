@@ -32,6 +32,12 @@ namespace Tennis4.Models
     {
         public int PlayerID { get; set; }
         public string PlayerFullName { get; set; }
+        public int ScoreSet1 { get; set; }
+    }
+
+    public class PlayerResultsViewModel : PlayerViewModel
+    {
+        public int PlayerResult { get; set; }
     }
 
     public class RowViewModel
@@ -40,21 +46,23 @@ namespace Tennis4.Models
         public List<int> ListPlayerIds { get; set; }
     }
 
-    //public class ResultsViewListModel
-    //{
-    //    public int ResultID { get; set; }
-    //    public int RoundID { get; set; }
-    //    public string Player1FullName { get; set; }
-    //    public string Player2FullName { get; set; }
-    //    public int Player1SetOneScore { get; set; }
-    //    public int Player2SetOneScore { get; set; }
-    //    public int Player1SetTwoScore { get; set; }
-    //    public int Player2SetTwoScore { get; set; }
-    //    public int Player1SetThreeScore { get; set; }
-    //    public int Player2SetThreeScore { get; set; }
-    //    public int Player1SetFourScore { get; set; }
-    //    public int Player2SetFourScore { get; set; }
-    //    public int Player1SetFiveScore { get; set; }
-    //    public int Player2SetFiveScore { get; set; }
-    //}
+    public class MatchesAndResults
+    {
+        public int MatchID { get; set; }
+
+        //Player 1
+        public int Player1ID { get; set; }
+        public string Player1FullName { get; set; }
+        public int Player1ScoreSet1 { get; set; }
+        public int Player1ScoreSet2 { get; set; }
+        public int Player1ScoreSet3 { get; set; }
+
+        //Player2
+        public int Player2ID { get; set; }
+        public string Player2FullName { get; set; }
+        public int Player2ScoreSet1 { get; set; }
+        public int Player2ScoreSet2 { get; set; }
+        public int Player2ScoreSet3 { get; set; }
+    }
+
 }

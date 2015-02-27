@@ -36,25 +36,40 @@ namespace Tennis4.Controllers
                          });
             ViewBag.RowsAndIds = playerQuery;
 
-            var players = from p in db.Players
-                          join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
-                          join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
-                          where cr.Round.CompetitionID == competitionId
-                          select new PlayerViewModel
-                          {
-                              PlayerID = p.ID,
-                              PlayerFullName = p.LastName + ", " + p.FirstName
-                          };
+            var playersAndResults = from p in db.Players
+                                    join re in db.Results on p.ID equals re.PlayerID
+                                    join ma in db.Matches on re.MatchID equals ma.ID
+                                    where ma.RoundID == roundId
+                                    where ma.Round.CompetitionID == competitionId
+                                    select new PlayerViewModel
+                                    {
+                                        PlayerID = p.ID,
+                                        PlayerFullName = p.LastName + ", " + p.FirstName,
+                                        ScoreSet1 = re.ScoreSet1
+                                    };
+            ViewBag.Players = playersAndResults.AsEnumerable();
 
-            ViewBag.Players = players.AsEnumerable();
+            //var players = from p in db.Players
+            //              join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
+            //              join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
+            //              where cr.Round.CompetitionID == competitionId
+            //              select new PlayerViewModel
+            //              {
+            //                  PlayerID = p.ID,
+            //                  PlayerFullName = p.LastName + ", " + p.FirstName
+            //              };
+
+            //ViewBag.Players = players.AsEnumerable();
 
             int capacity = (from c in db.Competitions
                                where c.ID == competitionId
                                select c.RowCapacity).Single();
 
             ViewBag.Capacity = capacity;
-            
-            return View(players.AsEnumerable());
+
+
+
+            return View(playersAndResults.AsEnumerable());
         }
 	}
 }

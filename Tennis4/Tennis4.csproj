@@ -236,6 +236,7 @@
     <Compile Include="Controllers\CompetitionEnrollmentController.cs" />
     <Compile Include="Controllers\CompetitionRowController.cs" />
     <Compile Include="Controllers\EnrollmentViewController.cs" />
+    <Compile Include="Controllers\MatchController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
     <Compile Include="Controllers\RoundController.cs" />
@@ -249,6 +250,7 @@
     <Compile Include="Models\Competition.cs" />
     <Compile Include="Models\CompetitionEnrollment.cs" />
     <Compile Include="Models\CompetitionRow.cs" />
+    <Compile Include="Models\Match.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\Round.cs" />
@@ -278,6 +280,11 @@
     <Content Include="Views\Round\Details.cshtml" />
     <Content Include="Views\Round\Edit.cshtml" />
     <Content Include="Views\Round\Index.cshtml" />
+    <Content Include="Views\Match\Create.cshtml" />
+    <Content Include="Views\Match\Delete.cshtml" />
+    <Content Include="Views\Match\Details.cshtml" />
+    <Content Include="Views\Match\Edit.cshtml" />
+    <Content Include="Views\Match\Index.cshtml" />
     <Content Include="Views\Result\Create.cshtml" />
     <Content Include="Views\Result\Delete.cshtml" />
     <Content Include="Views\Result\Details.cshtml" />

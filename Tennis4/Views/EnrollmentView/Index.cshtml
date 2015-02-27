@@ -30,6 +30,9 @@
             <th>
                 Player
             </th>
+            <th>
+                Score
+            </th>
         }
     </tr>
 
@@ -47,6 +50,15 @@
                         if (item == player.PlayerID)
                         {
                             @player.PlayerFullName
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (Tennis4.Models.PlayerViewModel player in ViewBag.Players)
+                    {
+                        if (item == player.PlayerID)
+                        {
+                            @player.ScoreSet1
                         }
                     }
                 </td>

@@ -19,7 +19,7 @@ namespace Tennis4.Models
         [DataType(DataType.Date)]
         public DateTime DateTo { get; set; }
 
-        public virtual ICollection<Result> Results { get; set; }
+        public virtual ICollection<Match> Matches { get; set; }
         public virtual Competition Competition { get; set; }
         public virtual ICollection<CompetitionRow> Rows { get; set; }
     }
