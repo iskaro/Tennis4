@@ -41,6 +41,9 @@ namespace Tennis4.Controllers
         public ActionResult Create()
         {
             ViewBag.CompetitionID = new SelectList(db.Competitions, "ID", "CompetitionName");
+            ViewBag.NewRoundNumber = (from r in db.Rounds
+                                   where r.CompetitionID == 1
+                                   select r.RoundNumber).Max() + 1;
             return View();
         }
 
@@ -58,9 +61,11 @@ namespace Tennis4.Controllers
                 return RedirectToAction("Index");
             }
 
+
             ViewBag.CompetitionID = new SelectList(db.Competitions, "ID", "CompetitionName", round.CompetitionID);
             return View(round);
         }
+
 
         // GET: /Round/Edit/5
         public ActionResult Edit(int? id)
