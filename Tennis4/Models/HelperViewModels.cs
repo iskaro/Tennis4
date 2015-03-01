@@ -49,7 +49,22 @@ namespace Tennis4.Models
     public class MatchesAndResults
     {
         public int MatchID { get; set; }
+        public IEnumerable<PlayerResult> PlayerResult { get; set; }
 
+    }
+
+    public class PlayerResult
+    {
+        public int PlayerID { get; set; }
+        public string PlayerFullName { get; set; }
+        public int ScoreSet1 { get; set; }
+        public int ScoreSet2 { get; set; }
+        public int ScoreSet3 { get; set; }
+
+    }
+
+    public class PlayersInMatch
+    {
         //Player 1
         public int Player1ID { get; set; }
         public string Player1FullName { get; set; }
@@ -64,5 +79,13 @@ namespace Tennis4.Models
         public int Player2ScoreSet2 { get; set; }
         public int Player2ScoreSet3 { get; set; }
     }
+
+    public class PlayerAndRowNumber
+    {
+        public int PlayerID { get; set; }
+        public int RowNumber { get; set; }
+    }
+
+
 
 }

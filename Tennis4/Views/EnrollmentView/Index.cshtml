@@ -8,16 +8,20 @@
 
 @using (Html.BeginForm("Index", "EnrollmentView", FormMethod.Get))
 {
-    <p>
-        Pretraga: @Html.DropDownList("competitionId", "Choose competition")
-        <input type="submit" value="Select" />
-    </p>
-    <p>
-        Pretraga: @Html.DropDownList("roundId", "Choose round")
-        <input type="submit" value="Select" />
-    </p>
-    
-
+    <div>
+        Competition:
+        <span>
+            @Html.DropDownList("competitionId", ViewBag.competitionId as SelectList, new { id = "Competition" })
+        </span>
+    </div>
+    <div id="RoundDiv">
+        Round: 
+        <span>
+            <select id="roundId" name="roundId"></select>
+            @*@Html.DropDownList("roundId", ViewBag.roundId as SelectList)*@
+        </span>
+    </div>
+    <input type="submit" value="Submit" id="Submit"/>
 }
 
 <table class="table">
@@ -66,3 +70,8 @@
         </tr>
     }
 </table>
+
+<script src="~/Scripts/jquery-2.1.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="@Url.Content("~/Scripts/GetRoundFromCompetition.js")"></script>

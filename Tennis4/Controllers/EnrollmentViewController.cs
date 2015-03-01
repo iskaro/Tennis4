@@ -21,8 +21,8 @@ namespace Tennis4.Controllers
                 competitionId = 1;
                 roundId = 1;
             }
+
             ViewBag.competitionId = new SelectList(db.Competitions, "ID", "CompetitionName", competitionId);
-            ViewBag.roundId = new SelectList(db.Rounds, "ID", "RoundNumber", roundId);
 
             var playerQuery = (from cr in db.CompetitionRows
                          join ce in db.CompetitionEnrollments on cr.ID equals ce.CompetitionRowID
@@ -48,18 +48,6 @@ namespace Tennis4.Controllers
                                         ScoreSet1 = re.ScoreSet1
                                     };
             ViewBag.Players = playersAndResults.AsEnumerable();
-
-            //var players = from p in db.Players
-            //              join ce in db.CompetitionEnrollments on p.ID equals ce.PlayerID
-            //              join cr in db.CompetitionRows on ce.CompetitionRowID equals cr.ID
-            //              where cr.Round.CompetitionID == competitionId
-            //              select new PlayerViewModel
-            //              {
-            //                  PlayerID = p.ID,
-            //                  PlayerFullName = p.LastName + ", " + p.FirstName
-            //              };
-
-            //ViewBag.Players = players.AsEnumerable();
 
             int capacity = (from c in db.Competitions
                                where c.ID == competitionId

@@ -16,10 +16,56 @@ namespace Tennis4.Controllers
         private TennisContext db = new TennisContext();
 
         // GET: /Result/
-        public ActionResult Index()
+        public ActionResult Index(int? competitionId, int? roundId)
         {
-            var results = db.Results.Include(r => r.Match).Include(r => r.Player);
-            return View(results.ToList());
+            //GET Competition dropdown list
+            ViewBag.competitionId = new SelectList(db.Competitions, "ID", "CompetitionName", competitionId);
+
+
+            //GET results
+            var results = db.Results.Include(r => r.Match).Include(r => r.Player).Where(x => x.Match.RoundID == roundId).ToList();
+
+            //GET row numbers
+            var rowPositions = GetPlayerAndRowNumber();
+            ViewBag.RowPositions = rowPositions;
+
+            return View(results);
+        }
+
+        [HttpPost]
+        public ActionResult Index(FormCollection c, int? competitionId, int? roundId)
+        {
+            //GET Competition dropdown list
+            ViewBag.competitionId = new SelectList(db.Competitions, "ID", "CompetitionName", competitionId);
+
+            //GET results
+            var results = db.Results.Include(r => r.Match).Include(r => r.Player).Where(x => x.Match.RoundID == roundId).ToList();
+
+            //GET row numbers
+            var rowPositions = GetPlayerAndRowNumber();
+            ViewBag.RowPositions = rowPositions;
+
+            //POST save changes
+            int i = 0;
+            if (ModelState.IsValid)
+            {
+                var resultIDArray = c.GetValues("item.ID");
+                var scoreSet1Array = c.GetValues("item.ScoreSet1");
+                var scoreSet2Array = c.GetValues("item.ScoreSet2");
+                var scoreSet3Array = c.GetValues("item.ScoreSet3");
+
+                for (i = 0; i < resultIDArray.Count(); i++)
+                {
+                    Result result = db.Results.Find(Convert.ToInt32(resultIDArray[i]));
+                    result.ScoreSet1 = Convert.ToInt32(scoreSet1Array[i]);
+                    result.ScoreSet2 = Convert.ToInt32(scoreSet2Array[i]);
+                    result.ScoreSet3 = Convert.ToInt32(scoreSet3Array[i]);
+                    db.Entry(result).State = EntityState.Modified;
+                }
+                db.SaveChanges();
+            }
+
+            return View(results);
         }
 
         // GET: /Result/Details/5
@@ -132,6 +178,19 @@ namespace Tennis4.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public List<PlayerAndRowNumber> GetPlayerAndRowNumber()
+        {
+            var rowPositions = (from cr in db.CompetitionRows
+                                join ce in db.CompetitionEnrollments on cr.ID equals ce.CompetitionRowID
+                                where cr.RoundID == 1
+                                select new PlayerAndRowNumber
+                                {
+                                    PlayerID = ce.PlayerID,
+                                    RowNumber = cr.RowNumber
+                                }).ToList();
+            return rowPositions;
         }
     }
 }

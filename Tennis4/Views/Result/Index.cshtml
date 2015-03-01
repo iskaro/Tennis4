@@ -6,16 +6,41 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@using (Html.BeginForm("Index", "Result", FormMethod.Get))
+{
+    <div>
+        Competition:
+        <span>
+            @Html.DropDownList("competitionId", ViewBag.competitionId as SelectList, new { id = "Competition" })
+        </span>
+    </div>
+    <div id="RoundDiv">
+        Round:
+        <span>
+            <select id="roundId" name="roundId"></select>
+        </span>
+    </div>
+    <input type="submit" value="Submit" id="Submit" />
+}
+
+
+
+@using (Html.BeginForm())
+{ 
 <table class="table">
+    @Html.ValidationSummary(true)
     <tr>
+        <th>
+            
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Match.ID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Player.FirstName)
+            @Html.DisplayNameFor(model => model.Player.LastName), @Html.DisplayNameFor(model => model.Player.FirstName)
+        </th>
+        <th>
+            Row
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ScoreSet1)
@@ -32,26 +57,47 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.HiddenFor(modelItem => item.ID)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Match.ID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Player.FirstName)
+            @Html.DisplayFor(modelItem => item.Player.LastName), @Html.DisplayFor(modelItem => item.Player.FirstName)
+        </td>
+@foreach (Tennis4.Models.PlayerAndRowNumber row in ViewBag.RowPositions)
+{
+    if (row.PlayerID == item.PlayerID)
+    {
+        <td>
+            @row.RowNumber
+        </td>
+    }
+}    
+        <td>
+            @Html.EditorFor(modelItem => item.ScoreSet1)
+            @Html.ValidationMessageFor(modelItem => item.ScoreSet1)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ScoreSet1)
+            @Html.EditorFor(modelItem => item.ScoreSet2)
+            @Html.ValidationMessageFor(modelItem => item.ScoreSet2)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ScoreSet2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ScoreSet3)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.EditorFor(modelItem => item.ScoreSet3)
+            @Html.ValidationMessageFor(modelItem => item.ScoreSet3)
         </td>
     </tr>
 }
+    <tr>
+        <td>
+            <input type="submit" value="Save" />
+        </td>
+    </tr>
 
 </table>
+}
+
+<script src="~/Scripts/jquery-2.1.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="@Url.Content("~/Scripts/GetRoundFromCompetition.js")"></script>

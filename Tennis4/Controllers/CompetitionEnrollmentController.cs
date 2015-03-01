@@ -38,11 +38,6 @@ namespace Tennis4.Controllers
 
             ViewBag.PlayerPositionModel = query.AsEnumerable();
 
-            //ModelCast model = new ModelCast()
-            //{
-            //    PlayerPositions = query.AsEnumerable()
-            //};
-
             return View(competitionenrollments);
         }
 
@@ -69,26 +64,12 @@ namespace Tennis4.Controllers
                             RowNumber = cr.RowNumber
                         }).Single();
 
-
-            //ModelCast model = new ModelCast()
-            //{
-            //   PlayerPositions = query.AsEnumerable()
-            //};
-
-            //ViewBag.PlayerPositionModel = query.ToList();
-
-            //CompetitionEnrollment competitionenrollment = db.CompetitionEnrollments.Find(id);
-            //if (competitionenrollment == null)
-            //{
-            //    return HttpNotFound();
-            //}
             return View(query);
         }
 
         // GET: /CompetitionEnrollment/Create
         public ActionResult Create()
         {
-            //ViewBag.PlayerListID = new SelectList(db.Players, "ID", "FirstName");
 
             //**** Send list of players for dropdown list ****
             var playerQuery = from p in db.Players
@@ -102,13 +83,6 @@ namespace Tennis4.Controllers
             //***** Select list of competitions for dropdown list ****
             ViewBag.CompetitionListID = new SelectList(db.Competitions.AsEnumerable(), "ID", "CompetitionName");
 
-            //ViewBag.CompetitionRowPosition = new SelectList(db.)
-
-            //**** Select list of rows for dropdown list ****
-            //var rowQuery = from cr in db.CompetitionRows
-            //               where cr.
-
-            //ViewBag.CompetitionRowID = new SelectList(db.CompetitionRows, "ID", "ID");
 
 
             return View();
@@ -121,11 +95,13 @@ namespace Tennis4.Controllers
                             where ro.CompetitionID == Id
                             select new
                             {
-                                ro.ID,
-                                ro.RoundNumber
+                                value = ro.ID,
+                                text = ro.RoundNumber + ": "
+                                + ro.DateFrom.Day + "." + ro.DateFrom.Month + "." + ro.DateFrom.Year + "." + "-"
+                                + ro.DateTo.Day + "." + ro.DateTo.Month + "." + ro.DateTo.Year + ".",
                             };
 
-            var listOfRounds = new SelectList(queryRounds.AsEnumerable(), "ID", "RoundNumber");
+            var listOfRounds = new SelectList(queryRounds.AsEnumerable(), "value", "text");
 
             return Json(listOfRounds, JsonRequestBehavior.AllowGet);
         }
@@ -243,7 +219,6 @@ namespace Tennis4.Controllers
                              RowNumber = cr.RowNumber
                          }).Single();
 
-            //CompetitionEnrollment competitionenrollment = db.CompetitionEnrollments.Find(id);
             if (query == null)
             {
                 return HttpNotFound();

@@ -18,20 +18,30 @@ namespace Tennis4.Controllers
         // GET: /Match/
         public ActionResult Index()
         {
-            var matches = db.Matches.Include(m => m.Round);
+            //var matches = db.Matches.Include(m => m.Round);
 
-            var player1 = from p in db.Players
-                          join r in db.Results on p.ID equals r.PlayerID
-                          select new
-                          {
-                              playerID = p.ID,
-                              scoreSet1 = r.ScoreSet1
-                          };
+            var matchesAndResults = from m in db.Matches
+                                    join re in db.Results on m.ID equals re.MatchID
+                                    join p in db.Players on re.PlayerID equals p.ID
+                                    where m.RoundID == 1
+                                    group new PlayerResult
+                                    {
+                                        PlayerID = p.ID,
+                                        PlayerFullName = p.LastName + ", " + p.FirstName,
+                                        ScoreSet1 = re.ScoreSet1,
+                                        ScoreSet2 = re.ScoreSet2,
+                                        ScoreSet3 = re.ScoreSet3
+                                    } by m.ID into g
+                                    select new MatchesAndResults
+                                    {
+                                        MatchID = g.Key,
+                                        PlayerResult = g.AsEnumerable()
+                                    };
 
 
 
 
-            return View(matches.ToList());
+            return View(matchesAndResults.ToList());
         }
 
         // GET: /Match/Details/5

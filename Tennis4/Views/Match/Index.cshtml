@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Tennis4.Models.Match>
+﻿@model IEnumerable<Tennis4.Models.MatchesAndResults>
 
 @{
     ViewBag.Title = "Index";
@@ -12,21 +12,42 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Round.ID)
+            @Html.DisplayNameFor(model => model.MatchID)
         </th>
-        <th></th>
+        <th>
+            Player 1
+        </th>
+        <th>
+            Player 2
+        </th>
+        <th>
+            Score
+        </th>        
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Round.ID)
+            @Html.DisplayFor(modelItem => item.MatchID)
         </td>
-        <td>
+        @foreach (var player in item.PlayerResult)
+        {
+            <td>
+                @player.PlayerFullName
+            </td>
+        }
+        @foreach (var player in item.PlayerResult)
+        {
+            <td>
+                @player.ScoreSet1
+            </td>
+        }
+         
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
+        </td>*@
     </tr>
 }
 
